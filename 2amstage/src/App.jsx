@@ -18,12 +18,19 @@ import MyTickets from "./pages/MyTickets";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageEvents from "./pages/admin/ManageEvents";
+import ScanTicket from "./pages/ScanTicket";
+import Profile from "./pages/Profile";
+import MyProfileRedirect from "./pages/MyProfileRedirect";
+import ChatList from "./pages/ChatList";
+import ChatRoom from "./pages/ChatRoom";
+import SearchUsers from "./pages/SearchUsers";
 
 const STAFF_ROLES = ["organizer", "super_admin"];
+const SCAN_ROLES = ["petugas", "super_admin"];
 
 export default function App() {
   const location = useLocation();
-  const isAdminArea = location.pathname.startsWith("/admin");
+  const isAdminArea = location.pathname.startsWith("/admin") || location.pathname.startsWith("/scan");
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -67,6 +74,41 @@ export default function App() {
             />
 
             <Route
+              path="/profil"
+              element={
+                <ProtectedRoute>
+                  <PageTransition><MyProfileRedirect /></PageTransition>
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/profil/:username" element={<PageTransition><Profile /></PageTransition>} />
+            <Route
+              path="/cari"
+              element={
+                <ProtectedRoute>
+                  <PageTransition><SearchUsers /></PageTransition>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  <PageTransition><ChatList /></PageTransition>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/chat/:id"
+              element={
+                <ProtectedRoute>
+                  <PageTransition><ChatRoom /></PageTransition>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="/admin"
               element={
                 <RoleRoute roles={STAFF_ROLES}>
@@ -77,6 +119,15 @@ export default function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="events" element={<ManageEvents />} />
             </Route>
+
+            <Route
+              path="/scan"
+              element={
+                <RoleRoute roles={SCAN_ROLES}>
+                  <ScanTicket />
+                </RoleRoute>
+              }
+            />
 
             <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
           </Routes>

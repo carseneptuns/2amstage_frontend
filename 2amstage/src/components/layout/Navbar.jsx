@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Ticket, User, LogOut, Zap, LayoutDashboard } from "lucide-react";
+import { Menu, X, Ticket, User, LogOut, Zap, LayoutDashboard, ScanLine, MessageCircle, Search } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 
 const HOME_LINKS = [
@@ -90,13 +90,27 @@ export default function Navbar() {
                   <LayoutDashboard className="h-4 w-4" /> Dashboard
                 </Link>
               )}
+              {user?.role === "petugas" && (
+                <Link to="/scan" className="nav-link flex items-center gap-1.5 text-sm font-medium">
+                  <ScanLine className="h-4 w-4" /> Scan Tiket
+                </Link>
+              )}
               <Link to="/my-tickets" className="nav-link flex items-center gap-1.5 text-sm font-medium">
                 <Ticket className="h-4 w-4" /> Tiket Saya
               </Link>
+              <Link to="/chat" className="nav-link flex items-center gap-1.5 text-sm font-medium">
+                <MessageCircle className="h-4 w-4" /> Pesan
+              </Link>
+              <Link to="/cari" className="nav-link flex items-center gap-1.5 text-sm font-medium">
+                <Search className="h-4 w-4" /> Cari
+              </Link>
               <div className="mx-1 h-5 w-px bg-white/10" />
-              <span className="flex items-center gap-1.5 text-sm text-mid">
+              <Link
+                to="/profil"
+                className="flex items-center gap-1.5 text-sm text-mid hover:text-hi"
+              >
                 <User className="h-4 w-4" /> {user?.nama?.split(" ")[0]}
-              </span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-sm text-mid transition hover:border-stage/40 hover:text-stage"
@@ -152,12 +166,42 @@ export default function Navbar() {
                       <LayoutDashboard className="h-4 w-4" /> Dashboard
                     </Link>
                   )}
+                  {user?.role === "petugas" && (
+                    <Link
+                      to="/scan"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    >
+                      <ScanLine className="h-4 w-4" /> Scan Tiket
+                    </Link>
+                  )}
                   <Link
                     to="/my-tickets"
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
                   >
                     <Ticket className="h-4 w-4" /> Tiket Saya
+                  </Link>
+                  <Link
+                    to="/chat"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                  >
+                    <MessageCircle className="h-4 w-4" /> Pesan
+                  </Link>
+                  <Link
+                    to="/cari"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                  >
+                    <Search className="h-4 w-4" /> Cari User
+                  </Link>
+                  <Link
+                    to="/profil"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                  >
+                    <User className="h-4 w-4" /> Profil Saya
                   </Link>
                   <button
                     onClick={handleLogout}

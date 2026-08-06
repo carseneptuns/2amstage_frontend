@@ -94,113 +94,130 @@ export default function EventFormModal({ open, onClose, onSaved, event }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-void/80 p-4 backdrop-blur-sm"
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-void/85 p-3 backdrop-blur-sm sm:p-6"
         onClick={onClose}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 12 }}
+          initial={{ opacity: 0, scale: 0.97, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 12 }}
+          exit={{ opacity: 0, scale: 0.97, y: 12 }}
           onClick={(e) => e.stopPropagation()}
-          className="glass max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-white/10 p-6"
+          className="glass flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10"
         >
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-xl tracking-wide">
+          <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-6 py-4 sm:px-8">
+            <h2 className="font-display text-2xl tracking-wide">
               {isEdit ? "Edit Event" : "Buat Event Baru"}
             </h2>
-            <button onClick={onClose} className="text-dim hover:text-hi">
+            <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-white/5 hover:text-hi">
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <label className="block cursor-pointer overflow-hidden rounded-xl border border-dashed border-white/15 bg-surface2">
-              {posterPreview ? (
-                <img src={posterPreview} alt="Poster" className="h-40 w-full object-cover" />
-              ) : (
-                <div className="flex h-40 flex-col items-center justify-center gap-2 text-dim">
-                  <UploadCloud className="h-6 w-6" />
-                  <span className="text-xs">Unggah poster event</span>
+          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col overflow-y-auto sm:overflow-hidden">
+            <div className="grid min-h-0 flex-1 grid-cols-1 gap-8 overflow-y-auto p-6 sm:grid-cols-[1fr_1.2fr] sm:p-8">
+              {/* Left: poster + status */}
+              <div className="space-y-5">
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Poster Event</label>
+                  <label className="block aspect-[3/4] w-full cursor-pointer overflow-hidden rounded-2xl border border-dashed border-white/15 bg-surface2">
+                    {posterPreview ? (
+                      <img src={posterPreview} alt="Poster" className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full flex-col items-center justify-center gap-2 text-dim">
+                        <UploadCloud className="h-8 w-8" />
+                        <span className="text-sm">Unggah poster event</span>
+                        <span className="text-xs text-dim/70">Rasio potret disarankan</span>
+                      </div>
+                    )}
+                    <input type="file" accept="image/*" className="hidden" onChange={handlePosterChange} />
+                  </label>
                 </div>
-              )}
-              <input type="file" accept="image/*" className="hidden" onChange={handlePosterChange} />
-            </label>
 
-            <div>
-              <label className="mb-1 block text-xs font-medium text-mid">Nama Event *</label>
-              <input
-                value={form.nama}
-                onChange={handleChange("nama")}
-                className="input-field w-full"
-                placeholder="cth. Midnight Echoes Live"
-              />
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-mid">Artis / Line-up</label>
-              <input
-                value={form.artis}
-                onChange={handleChange("artis")}
-                className="input-field w-full"
-                placeholder="cth. The Neon Riot"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="mb-1 block text-xs font-medium text-mid">Tanggal *</label>
-                <input
-                  type="date"
-                  value={form.tanggal}
-                  onChange={handleChange("tanggal")}
-                  className="input-field w-full"
-                />
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Status</label>
+                  <select value={form.status} onChange={handleChange("status")} className="input-field w-full">
+                    {STATUS_OPTIONS.map((s) => (
+                      <option key={s.value} value={s.value}>
+                        {s.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div>
-                <label className="mb-1 block text-xs font-medium text-mid">Waktu *</label>
-                <input
-                  type="time"
-                  value={form.waktu}
-                  onChange={handleChange("waktu")}
-                  className="input-field w-full"
-                />
+
+              {/* Right: details */}
+              <div className="space-y-5">
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Nama Event *</label>
+                  <input
+                    value={form.nama}
+                    onChange={handleChange("nama")}
+                    className="input-field w-full"
+                    placeholder="cth. Midnight Echoes Live"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Artis / Line-up</label>
+                  <input
+                    value={form.artis}
+                    onChange={handleChange("artis")}
+                    className="input-field w-full"
+                    placeholder="cth. The Neon Riot"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="mb-1.5 block text-xs font-medium text-mid">Tanggal *</label>
+                    <input
+                      type="date"
+                      value={form.tanggal}
+                      onChange={handleChange("tanggal")}
+                      className="input-field w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-xs font-medium text-mid">Waktu *</label>
+                    <input
+                      type="time"
+                      value={form.waktu}
+                      onChange={handleChange("waktu")}
+                      className="input-field w-full"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Lokasi *</label>
+                  <input
+                    value={form.lokasi}
+                    onChange={handleChange("lokasi")}
+                    className="input-field w-full"
+                    placeholder="cth. GBK Senayan, Jakarta"
+                  />
+                </div>
+
+                <div className="flex min-h-0 flex-1 flex-col">
+                  <label className="mb-1.5 block text-xs font-medium text-mid">Deskripsi</label>
+                  <textarea
+                    value={form.deskripsi}
+                    onChange={handleChange("deskripsi")}
+                    rows={8}
+                    className="input-field w-full flex-1 resize-none"
+                  />
+                </div>
               </div>
             </div>
 
-            <div>
-              <label className="mb-1 block text-xs font-medium text-mid">Lokasi *</label>
-              <input
-                value={form.lokasi}
-                onChange={handleChange("lokasi")}
-                className="input-field w-full"
-                placeholder="cth. GBK Senayan, Jakarta"
-              />
+            <div className="flex shrink-0 items-center justify-end gap-3 border-t border-white/10 px-6 py-4 sm:px-8">
+              <button type="button" onClick={onClose} className="btn-secondary text-sm">
+                Batal
+              </button>
+              <button type="submit" disabled={saving} className="btn-primary text-sm">
+                {saving ? <InlineSpinner /> : isEdit ? "Simpan Perubahan" : "Buat Event"}
+              </button>
             </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-mid">Deskripsi</label>
-              <textarea
-                value={form.deskripsi}
-                onChange={handleChange("deskripsi")}
-                rows={3}
-                className="input-field w-full resize-none"
-              />
-            </div>
-
-            <div>
-              <label className="mb-1 block text-xs font-medium text-mid">Status</label>
-              <select value={form.status} onChange={handleChange("status")} className="input-field w-full">
-                {STATUS_OPTIONS.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button type="submit" disabled={saving} className="btn-primary w-full justify-center">
-              {saving ? <InlineSpinner /> : isEdit ? "Simpan Perubahan" : "Buat Event"}
-            </button>
           </form>
         </motion.div>
       </motion.div>
