@@ -126,7 +126,7 @@ export default function ChatRoom() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Tulis pesan..."
-            className="input-field flex-1"
+            className="input-field flex-1 text-base"
           />
           <button type="submit" disabled={sending || !text.trim()} className="btn-primary !px-4">
             <Send className="h-4 w-4" />
