@@ -25,7 +25,7 @@ const RESUME_DELAY = 3000;
 export default function ScanTicket() {
   const { user, logout } = useAuthStore();
   const videoRef = useRef(null);
-  const streamRef = useRef(null); // Ref khusus untuk menyimpan stream aktif
+  const streamRef = useRef(null);
   const canvasRef = useRef(document.createElement("canvas"));
   const rafRef = useRef(null);
   const lastCodeRef = useRef(null);
@@ -73,68 +73,50 @@ export default function ScanTicket() {
     }, RESUME_DELAY);
   };
 
-  // Camera setup (Fix Stream Leakage & Initialization)
+  // Setup kamera tunggal & bersih
   useEffect(() => {
     let active = true;
 
-    // Camera setup
-    useEffect(() => {
-      let active = true;
-
-      const startCamera = async () => {
+    const startCamera = async () => {
+      try {
+        let stream;
         try {
-          // 1. Coba minta kamera belakang dulu (untuk HP)
-          // 2. Jika di PC/Laptop yang tidak punya kamera belakang, fallback ke video: true (kamera apapun yang ada)
-          let stream;
-          try {
-            stream = await navigator.mediaDevices.getUserMedia({
-              video: { facingMode: "environment" }
-            });
-          } catch (e) {
-            // Fallback untuk Laptop/PC biasa
-            stream = await navigator.mediaDevices.getUserMedia({
-              video: true
-            });
-          }
-
-          if (!active) {
-            stream.getTracks().forEach((t) => t.stop());
-            return;
-          }
-
-          streamRef.current = stream;
-
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-            videoRef.current.onloadedmetadata = async () => {
-              try {
-                await videoRef.current.play();
-                if (active) setCameraState("ready");
-              } catch (e) {
-                console.error("Autoplay error:", e);
-              }
-            };
-          }
-        } catch (err) {
-          if (!active) return;
-          console.error("Gagal membuka kamera:", err);
-          setCameraState(err?.name === "NotAllowedError" ? "denied" : "unavailable");
-          setManualOpen(true);
+          // Coba minta kamera belakang (Mobile)
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "environment" },
+          });
+        } catch (e) {
+          // Fallback ke webcam biasa jika di Laptop/PC
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
         }
-      };
 
-      startCamera();
-
-      return () => {
-        active = false;
-        if (streamRef.current) {
-          streamRef.current.getTracks().forEach((t) => t.stop());
-          streamRef.current = null;
+        if (!active) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
         }
-        cancelAnimationFrame(rafRef.current);
-        clearTimeout(resumeTimerRef.current);
-      };
-    }, []);
+
+        streamRef.current = stream;
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.onloadedmetadata = async () => {
+            try {
+              await videoRef.current.play();
+              if (active) setCameraState("ready");
+            } catch (e) {
+              console.error("Autoplay error:", e);
+            }
+          };
+        }
+      } catch (err) {
+        if (!active) return;
+        console.error("Gagal membuka kamera:", err);
+        setCameraState(err?.name === "NotAllowedError" ? "denied" : "unavailable");
+        setManualOpen(true);
+      }
+    };
 
     startCamera();
 
@@ -149,7 +131,7 @@ export default function ScanTicket() {
     };
   }, []);
 
-  // Scan loop
+  // Loop QR Code Scanner
   useEffect(() => {
     if (cameraState !== "ready") return;
 
@@ -214,22 +196,25 @@ export default function ScanTicket() {
       <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-5 px-4 py-6">
         {/* Camera viewfinder */}
         <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-surface2">
+          {/* Video selalu dirender tanpa hidden agar onloadedmetadata dipicu dengan benar */}
           <video
             ref={videoRef}
             muted
             playsInline
-            className={`h-full w-full object-cover scale-x-[-1] ${cameraState === "ready" ? "block" : "hidden"}`}
+            className={`h-full w-full object-cover transition-opacity duration-300 ${
+              cameraState === "ready" ? "opacity-100" : "opacity-0"
+            }`}
           />
 
           {cameraState === "starting" && (
-            <div className="flex h-full flex-col items-center justify-center gap-2 text-dim">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-dim">
               <Loader2 className="h-6 w-6 animate-spin" />
               <p className="text-sm">Membuka kamera...</p>
             </div>
           )}
 
           {(cameraState === "denied" || cameraState === "unavailable") && (
-            <div className="flex h-full flex-col items-center justify-center gap-2 px-6 text-center text-dim">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center text-dim">
               <CameraOff className="h-8 w-8" />
               <p className="text-sm">
                 {cameraState === "denied"
