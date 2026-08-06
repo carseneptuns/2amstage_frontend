@@ -77,36 +77,64 @@ export default function ScanTicket() {
   useEffect(() => {
     let active = true;
 
-    const startCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { ideal: "environment" } },
-        });
+    // Camera setup
+    useEffect(() => {
+      let active = true;
 
-        if (!active) {
-          stream.getTracks().forEach((t) => t.stop());
-          return;
+      const startCamera = async () => {
+        try {
+          // 1. Coba minta kamera belakang dulu (untuk HP)
+          // 2. Jika di PC/Laptop yang tidak punya kamera belakang, fallback ke video: true (kamera apapun yang ada)
+          let stream;
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: "environment" }
+            });
+          } catch (e) {
+            // Fallback untuk Laptop/PC biasa
+            stream = await navigator.mediaDevices.getUserMedia({
+              video: true
+            });
+          }
+
+          if (!active) {
+            stream.getTracks().forEach((t) => t.stop());
+            return;
+          }
+
+          streamRef.current = stream;
+
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.onloadedmetadata = async () => {
+              try {
+                await videoRef.current.play();
+                if (active) setCameraState("ready");
+              } catch (e) {
+                console.error("Autoplay error:", e);
+              }
+            };
+          }
+        } catch (err) {
+          if (!active) return;
+          console.error("Gagal membuka kamera:", err);
+          setCameraState(err?.name === "NotAllowedError" ? "denied" : "unavailable");
+          setManualOpen(true);
         }
+      };
 
-        streamRef.current = stream;
+      startCamera();
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.onloadedmetadata = async () => {
-            try {
-              await videoRef.current.play();
-              if (active) setCameraState("ready");
-            } catch (e) {
-              console.error("Autoplay failed:", e);
-            }
-          };
+      return () => {
+        active = false;
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((t) => t.stop());
+          streamRef.current = null;
         }
-      } catch (err) {
-        if (!active) return;
-        setCameraState(err?.name === "NotAllowedError" ? "denied" : "unavailable");
-        setManualOpen(true);
-      }
-    };
+        cancelAnimationFrame(rafRef.current);
+        clearTimeout(resumeTimerRef.current);
+      };
+    }, []);
 
     startCamera();
 
