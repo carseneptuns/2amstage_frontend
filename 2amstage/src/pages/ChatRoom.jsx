@@ -45,10 +45,6 @@ export default function ChatRoom() {
     return () => clearInterval(interval);
   }, [loadMeta, loadMessages]);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   const handleSend = async (e) => {
     e.preventDefault();
     const isi = text.trim();
