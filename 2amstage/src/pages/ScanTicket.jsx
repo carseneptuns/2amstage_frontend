@@ -25,6 +25,7 @@ const RESUME_DELAY = 3000;
 export default function ScanTicket() {
   const { user, logout } = useAuthStore();
   const videoRef = useRef(null);
+  const streamRef = useRef(null); // Ref khusus untuk menyimpan stream aktif
   const canvasRef = useRef(document.createElement("canvas"));
   const rafRef = useRef(null);
   const lastCodeRef = useRef(null);
@@ -55,7 +56,6 @@ export default function ScanTicket() {
         setScanning(true);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checking]);
 
   const applyResult = (code, data) => {
@@ -73,27 +73,49 @@ export default function ScanTicket() {
     }, RESUME_DELAY);
   };
 
-  // Camera setup
+  // Camera setup (Fix Stream Leakage & Initialization)
   useEffect(() => {
-    let stream;
-    (async () => {
+    let active = true;
+
+    const startCamera = async () => {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } },
         });
+
+        if (!active) {
+          stream.getTracks().forEach((t) => t.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          await videoRef.current.play();
+          videoRef.current.onloadedmetadata = async () => {
+            try {
+              await videoRef.current.play();
+              if (active) setCameraState("ready");
+            } catch (e) {
+              console.error("Autoplay failed:", e);
+            }
+          };
         }
-        setCameraState("ready");
       } catch (err) {
+        if (!active) return;
         setCameraState(err?.name === "NotAllowedError" ? "denied" : "unavailable");
         setManualOpen(true);
       }
-    })();
+    };
+
+    startCamera();
 
     return () => {
-      stream?.getTracks().forEach((t) => t.stop());
+      active = false;
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+      }
       cancelAnimationFrame(rafRef.current);
       clearTimeout(resumeTimerRef.current);
     };
@@ -120,6 +142,7 @@ export default function ScanTicket() {
       }
       rafRef.current = requestAnimationFrame(tick);
     };
+
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [cameraState, scanning, validateCode]);
@@ -163,14 +186,12 @@ export default function ScanTicket() {
       <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-5 px-4 py-6">
         {/* Camera viewfinder */}
         <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-surface2">
-          {cameraState === "ready" && (
-            <video
-              ref={videoRef}
-              muted
-              playsInline
-              className="h-full w-full scale-x-[-1] object-cover"
-            />
-          )}
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            className={`h-full w-full object-cover scale-x-[-1] ${cameraState === "ready" ? "block" : "hidden"}`}
+          />
 
           {cameraState === "starting" && (
             <div className="flex h-full flex-col items-center justify-center gap-2 text-dim">
