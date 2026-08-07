@@ -5,7 +5,7 @@ import followService from "../../services/followService";
 import { apiErrorMessage } from "../../lib/api";
 import { useAuthStore } from "../../store/authStore";
 
-export default function FollowButton({ userId, onChange }) {
+export default function FollowButton({ userId, onChange, compact = false }) {
   const currentUser = useAuthStore((s) => s.user);
   const [status, setStatus] = useState(null); // { is_following, is_followed_by, is_mutual }
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ export default function FollowButton({ userId, onChange }) {
   }, [userId]);
 
   if (!currentUser || currentUser.id === userId) return null;
-  if (loading) return <div className="btn-secondary !px-5 opacity-50"><Loader2 className="h-4 w-4 animate-spin" /></div>;
+  if (loading) return <div className={compact ? "btn-secondary !px-3 !py-1.5 text-xs opacity-50" : "btn-secondary !px-5 opacity-50"}><Loader2 className="h-4 w-4 animate-spin" /></div>;
   if (!status) return null;
 
   const toggle = async () => {
@@ -53,17 +53,21 @@ export default function FollowButton({ userId, onChange }) {
     <button
       onClick={toggle}
       disabled={busy}
-      className={status.is_following ? "btn-secondary !px-5" : "btn-primary !px-5"}
+      className={
+        compact
+          ? (status.is_following ? "btn-secondary !px-3 !py-1.5 text-xs shrink-0" : "btn-primary !px-3 !py-1.5 text-xs shrink-0")
+          : (status.is_following ? "btn-secondary !px-5" : "btn-primary !px-5")
+      }
     >
       {busy ? (
         <Loader2 className="h-4 w-4 animate-spin" />
       ) : status.is_following ? (
         <>
-          <UserCheck className="h-4 w-4" /> Mengikuti
+          <UserCheck className="h-4 w-4" /> {compact ? "" : "Mengikuti"}
         </>
       ) : (
         <>
-          <UserPlus className="h-4 w-4" /> Follow
+          <UserPlus className="h-4 w-4" /> {compact ? "" : "Follow"}
         </>
       )}
     </button>
