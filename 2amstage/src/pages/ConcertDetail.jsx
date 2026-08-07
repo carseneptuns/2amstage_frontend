@@ -49,7 +49,7 @@ export default function ConcertDetail() {
   const totalTickets = selectedItems.reduce((sum, it) => sum + it.jumlah, 0);
 
   const onQuantityChange = (categoryId, qty) => {
-    setQuantities((q) => ({ ...q, [categoryId]: qty }));
+    setQuantities(qty > 0 ? { [categoryId]: qty } : {});
   };
 
   const handleBuy = async () => {
