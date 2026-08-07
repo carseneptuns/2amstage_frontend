@@ -16,6 +16,10 @@ function getMap(key) {
   }
 }
 
+function canUseOsNotification() {
+  return typeof window !== "undefined" && "Notification" in window;
+}
+
 export default function useChatNotifier() {
   const currentUser = useAuthStore((s) => s.user);
   const location = useLocation();
@@ -25,6 +29,14 @@ export default function useChatNotifier() {
   useEffect(() => {
     locationRef.current = location.pathname;
   }, [location.pathname]);
+
+  // Minta izin notifikasi sekali, pas user login — browser nolak minta izin
+  // lagi kalau sebelumnya udah pernah di-allow/deny (jadi aman dipanggil tiap mount).
+  useEffect(() => {
+    if (currentUser && canUseOsNotification() && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -47,13 +59,34 @@ export default function useChatNotifier() {
           const onThisChatPage = locationRef.current === `/chat/${c.id}`;
 
           if (isUnread && !alreadyNotified && !onThisChatPage) {
-            toast(other.nama, {
-              description: msg.isi,
-              action: {
-                label: "Buka",
-                onClick: () => navigate(`/chat/${c.id}`),
-              },
-            });
+            const goToChat = () => navigate(`/chat/${c.id}`);
+
+            // Tab lagi disembunyiin/diminimize/pindah tab lain → pakai notifikasi
+            // OS asli (Notification API) biar keliatan walau lagi nggak natap web-nya.
+            // Tab lagi keliatan/aktif → toast di dalam app aja, nggak perlu OS notif.
+            const useOsNotification =
+              canUseOsNotification() &&
+              Notification.permission === "granted" &&
+              document.hidden;
+
+            if (useOsNotification) {
+              const notif = new Notification(other.nama, {
+                body: msg.isi,
+                icon: "/stage-icon.svg",
+                tag: `chat-${c.id}`, // notif baru dari chat yang sama gantiin yang lama, nggak numpuk
+              });
+              notif.onclick = () => {
+                window.focus();
+                goToChat();
+                notif.close();
+              };
+            } else {
+              toast(other.nama, {
+                description: msg.isi,
+                action: { label: "Buka", onClick: goToChat },
+              });
+            }
+
             lastNotified[c.id] = msgTime;
             changed = true;
           }
