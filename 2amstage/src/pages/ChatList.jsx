@@ -8,11 +8,21 @@ import LoadingScreen from "../components/ui/LoadingScreen";
 import { formatDateTime } from "../utils/format";
 
 const POLL_MS = 5000;
+const READ_KEY = "chat_last_read";
+
+function getLastReadMap() {
+  try{
+    return JSON.parse(localStorage.getItem(READ_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
 
 export default function ChatList() {
   const currentUser = useAuthStore((s) => s.user);
   const [conversations, setConversations] = useState(null);
   const [error, setError] = useState(null);
+  const [lastRead, setLastRead] = useState(getLastReadMap);
 
   useEffect(() => {
     let mounted = true;
@@ -31,6 +41,11 @@ export default function ChatList() {
       clearInterval(interval);
     };
   }, []);
+  const markRead = (convoId, timestamp) => {
+    const map = { ...lastRead, [convoId]: timestamp};
+    localStorage.setItem(READ_KEY, JSON.stringify(map));
+    setLastRead(map);
+  }
 
   if (conversations === null && !error) return <LoadingScreen label="Membuka pesan..." />;
 
@@ -55,12 +70,16 @@ export default function ChatList() {
           const other = c.lawan_bicara?.[0];
           if (!other) return null;
           const isMine = c.pesan_terakhir?.sender_id === currentUser?.id;
+          const lastMsgTime = c.pesan_terakhir ? new Date(c.pesan_terakhir.created_at).getTime() : 0;
+          const isUnread = !isMine && lastMsgTime > (lastRead[c.id] || 0);
           return (
             <Link
               key={c.id}
               to={`/chat/${c.id}`}
               className="flex items-center gap-3 rounded-2xl border border-white/10 bg-surface p-4 transition hover:border-white/20"
+              onClick={() => c.pesan_terakhir && markRead(c.id, lastMsgTime)}
             >
+              
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-surface2">
                 {other.avatar_url ? (
                   <img src={assetUrl(other.avatar_url)} alt={other.nama} className="h-full w-full object-cover" />
@@ -77,8 +96,9 @@ export default function ChatList() {
                 </p>
               </div>
               {c.pesan_terakhir && (
-                <span className="shrink-0 text-xs text-dim">{formatDateTime(c.pesan_terakhir.created_at)}</span>
+                <span className="text-xs text-dim">{formatDateTime(c.pesan_terakhir.created_at)}</span>
               )}
+              {isUnread && <span className="h-2.5 w-2.5 rounded-full bg-red-500"/>}
             </Link>
           );
         })}
