@@ -35,7 +35,7 @@ export default function AboutUs() {
           {STATS.map((s) => (
             <div
               key={s.label}
-              className="rounded-2xl border border-black/10 bg-surface p-6 text-center transition hover:border-stage/30"
+              className="rounded-2xl border border-hairline/10 bg-surface p-6 text-center transition hover:border-stage/30"
             >
               <p className="font-display text-3xl tracking-wide text-hi sm:text-4xl">
                 {s.value}

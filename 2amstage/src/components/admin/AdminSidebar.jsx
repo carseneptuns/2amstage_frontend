@@ -19,7 +19,7 @@ export default function AdminSidebar({ onNavigate, onClose }) {
 
   return (
     <div className="flex h-full w-full flex-col bg-surface">
-      <div className="flex items-center justify-between gap-2 border-b border-black/10 px-6 py-6">
+      <div className="flex items-center justify-between gap-2 border-b border-hairline/10 px-6 py-6">
         <div className="flex items-center gap-2">
           <Zap className="h-6 w-6 text-stage" strokeWidth={2.5} />
           <span className="font-display text-lg tracking-wide">
@@ -27,13 +27,13 @@ export default function AdminSidebar({ onNavigate, onClose }) {
           </span>
         </div>
         {onClose && (
-          <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-black/[0.03] hover:text-hi md:hidden">
+          <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-hairline/[0.03] hover:text-hi md:hidden">
             <X className="h-5 w-5" />
           </button>
         )}
       </div>
 
-      <div className="flex items-center gap-2 border-b border-black/10 px-6 py-4">
+      <div className="flex items-center gap-2 border-b border-hairline/10 px-6 py-4">
         <ShieldCheck className="h-4 w-4 text-violet" />
         <div className="min-w-0">
           <p className="truncate text-sm font-medium text-hi">{user?.nama}</p>
@@ -54,7 +54,7 @@ export default function AdminSidebar({ onNavigate, onClose }) {
               `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                 isActive
                   ? "bg-stage/15 text-stage"
-                  : "text-mid hover:bg-black/[0.03] hover:text-hi"
+                  : "text-mid hover:bg-hairline/[0.03] hover:text-hi"
               }`
             }
           >
@@ -64,11 +64,11 @@ export default function AdminSidebar({ onNavigate, onClose }) {
         ))}
       </nav>
 
-      <div className="border-t border-black/10 p-3 space-y-1">
+      <div className="border-t border-hairline/10 p-3 space-y-1">
         <Link
           to="/"
           onClick={onNavigate}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-mid transition hover:bg-black/[0.03] hover:text-hi"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-mid transition hover:bg-hairline/[0.03] hover:text-hi"
         >
           <Globe className="h-4 w-4" /> Kembali ke Situs
         </Link>

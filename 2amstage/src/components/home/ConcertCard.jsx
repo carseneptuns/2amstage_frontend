@@ -11,7 +11,7 @@ export default function ConcertCard({ event }) {
   return (
     <Link
       to={`/concerts/${event.id}`}
-      className="group relative block w-[78vw] shrink-0 snap-start overflow-hidden rounded-2xl border border-black/10 bg-surface transition-all duration-500 hover:-translate-y-1 hover:border-stage/30 hover:shadow-glow sm:w-[340px]"
+      className="group relative block w-[78vw] shrink-0 snap-start overflow-hidden rounded-2xl border border-hairline/10 bg-surface transition-all duration-500 hover:-translate-y-1 hover:border-stage/30 hover:shadow-glow sm:w-[340px]"
     >
       <div className="relative h-[420px] overflow-hidden sm:h-[440px]">
         <PosterFrame
@@ -46,7 +46,7 @@ export default function ConcertCard({ event }) {
           {/* hover reveal detail panel */}
           <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]">
             <div className="overflow-hidden">
-              <div className="mt-3 flex flex-col gap-2 border-t border-black/10 pt-3">
+              <div className="mt-3 flex flex-col gap-2 border-t border-hairline/10 pt-3">
                 <div className="flex items-center gap-1.5 text-xs text-mid">
                   <MapPin className="h-3.5 w-3.5 text-stage" /> {event.lokasi}
                 </div>
@@ -56,7 +56,7 @@ export default function ConcertCard({ event }) {
                     {event.harga_termurah != null ? formatIDR(event.harga_termurah) : "-"}
                   </span>
                 </div>
-                <div className="mt-1 flex items-center justify-between gap-2 rounded-full bg-black/[0.03] px-4 py-2 text-xs font-semibold text-hi transition group-hover:bg-stage">
+                <div className="mt-1 flex items-center justify-between gap-2 rounded-full bg-hairline/[0.03] px-4 py-2 text-xs font-semibold text-hi transition group-hover:bg-stage">
                   Lihat Detail
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </div>

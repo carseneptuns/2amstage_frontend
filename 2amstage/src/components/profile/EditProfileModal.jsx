@@ -61,7 +61,7 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 12 }}
           onClick={(e) => e.stopPropagation()}
-          className="glass max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-black/10 p-6"
+          className="glass max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-hairline/10 p-6"
         >
           <div className="mb-6 flex items-center justify-between">
             <h2 className="font-display text-xl tracking-wide">Edit Profil</h2>
@@ -72,7 +72,7 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex justify-center">
-              <label className="group relative h-24 w-24 cursor-pointer overflow-hidden rounded-full border border-black/10 bg-surface2">
+              <label className="group relative h-24 w-24 cursor-pointer overflow-hidden rounded-full border border-hairline/10 bg-surface2">
                 {avatarPreview ? (
                   <img src={avatarPreview} alt="Avatar" className="h-full w-full object-cover" />
                 ) : (

@@ -107,19 +107,19 @@ export default function CategoryManagerModal({ open, onClose, event, onChanged }
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 12 }}
           onClick={(e) => e.stopPropagation()}
-          className="glass flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-black/10"
+          className="glass flex h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-hairline/10"
         >
-          <div className="flex shrink-0 items-center justify-between border-b border-black/10 px-6 py-4 sm:px-8">
+          <div className="flex shrink-0 items-center justify-between border-b border-hairline/10 px-6 py-4 sm:px-8">
             <div className="min-w-0">
               <h2 className="font-display text-2xl tracking-wide">Kategori Tiket</h2>
               <p className="truncate text-sm text-dim">{event?.nama}</p>
             </div>
-            <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-black/[0.03] hover:text-hi">
+            <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-hairline/[0.03] hover:text-hi">
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          <div className="shrink-0 border-b border-black/10 px-6 py-5 sm:px-8">
+          <div className="shrink-0 border-b border-hairline/10 px-6 py-5 sm:px-8">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-[1.6fr_1fr_1fr_auto]">
               <input
                 value={form.nama_kategori}
@@ -167,7 +167,7 @@ export default function CategoryManagerModal({ open, onClose, event, onChanged }
                 {categories.map((cat) => (
                   <div
                     key={cat.id}
-                    className="flex items-center justify-between rounded-xl border border-black/5 bg-surface2 px-4 py-4"
+                    className="flex items-center justify-between rounded-xl border border-hairline/5 bg-surface2 px-4 py-4"
                   >
                     <div className="min-w-0">
                       <p className="truncate font-medium text-hi">{cat.nama_kategori}</p>
@@ -177,7 +177,7 @@ export default function CategoryManagerModal({ open, onClose, event, onChanged }
                     <div className="flex shrink-0 items-center gap-1">
                       <button
                         onClick={() => startEdit(cat)}
-                        className="rounded-lg p-2 text-mid hover:bg-black/[0.03] hover:text-hi"
+                        className="rounded-lg p-2 text-mid hover:bg-hairline/[0.03] hover:text-hi"
                       >
                         <Pencil className="h-3.5 w-3.5" />
                       </button>

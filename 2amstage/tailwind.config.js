@@ -1,44 +1,51 @@
 /** @type {import('tailwindcss').Config} */
+
+// Turns a CSS variable (stored as an "R G B" triplet, e.g. "255 255 255")
+// into a Tailwind color that still supports opacity modifiers like
+// bg-void/50. This is what lets every token below flip instantly when the
+// `dark` class toggles on <html>, without touching component files.
+function withOpacity(variable) {
+  return ({ opacityValue }) =>
+    opacityValue !== undefined
+      ? `rgb(var(${variable}) / ${opacityValue})`
+      : `rgb(var(${variable}))`;
+}
+
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        // Apple (España) style-reference palette. Token NAMES kept the same
-        // as before (void, surface, stage, dst) so every component that
-        // already references them re-themes automatically — only the
-        // underlying hex values changed.
-        void: "#ffffff",       // was #0B0A10 — Apple "Paper", primary page canvas
-        surface: "#f5f5f7",    // was #16141E — Apple "Canvas", alternating gray band
-        surface2: "#f5f5f7",   // was #201D2B — card / input surfaces
-        surface3: "#e8e8ed",   // was #2A2637 — hover wash / elevated surfaces
-        stage: "#0071e3",      // was #FF2E63 — Apple "Electric Blue", primary CTA
-        amber: "#b64400",      // was #FFC93C — Apple "Ember", badges/status accent
-        violet: "#0066cc",     // was #8C6FFF — Apple "Link Blue", secondary accent
-        hi: "#1d1d1f",         // was #F7F5FB — Apple "Primary Ink", primary text
-        mid: "#707070",        // was #B4AFC7 — Apple "Mid Gray", secondary text
-        dim: "#86868b",        // was #716C87 — muted/tertiary text
+        // Light = Apple (España) style reference, Dark = Linear style reference.
+        // Actual values live in src/index.css as CSS variables (:root vs .dark).
+        void: withOpacity("--c-void"),
+        surface: withOpacity("--c-surface"),
+        surface2: withOpacity("--c-surface2"),
+        surface3: withOpacity("--c-surface3"),
+        stage: withOpacity("--c-stage"),
+        amber: withOpacity("--c-amber"),
+        violet: withOpacity("--c-violet"),
+        hi: withOpacity("--c-hi"),
+        mid: withOpacity("--c-mid"),
+        dim: withOpacity("--c-dim"),
+        hairline: withOpacity("--c-hairline"),
+        "on-stage": withOpacity("--c-on-stage"), // text color that sits ON TOP of the stage/CTA fill
       },
       fontFamily: {
-        // SF Pro Display/Text aren't web-licensable — Inter is Apple's own
-        // documented substitute for both, so display & body now share it.
         display: ["Inter", "sans-serif"],
         body: ["Inter", "sans-serif"],
         mono: ["'Space Mono'", "monospace"],
       },
       backgroundImage: {
-        // Apple's system uses flat color, never decorative UI gradients —
-        // neutralized rather than deleted so existing class usages don't break.
-        spotlight: "radial-gradient(60% 60% at 50% 0%, rgba(0,0,0,0.03) 0%, rgba(255,255,255,0) 70%)",
-        "stage-gradient": "linear-gradient(135deg, #0071e3 0%, #0071e3 100%)",
-        "amber-gradient": "linear-gradient(135deg, #b64400 0%, #b64400 100%)",
+        spotlight: "radial-gradient(60% 60% at 50% 0%, rgb(var(--c-hairline) / 0.04) 0%, rgb(var(--c-void) / 0) 70%)",
+        "stage-gradient": "linear-gradient(135deg, rgb(var(--c-stage)) 0%, rgb(var(--c-stage)) 100%)",
+        "amber-gradient": "linear-gradient(135deg, rgb(var(--c-amber)) 0%, rgb(var(--c-amber)) 100%)",
       },
       boxShadow: {
-        // "Don't use shadows or elevation" — Apple style guide. Kept as
-        // no-ops so hover:shadow-glow etc. stop glowing without erroring.
-        glow: "none",
-        "glow-violet": "none",
-        "glow-amber": "none",
+        glow: "var(--shadow-glow)",
+        "glow-violet": "var(--shadow-glow)",
+        "glow-amber": "var(--shadow-glow)",
       },
       keyframes: {
         pulseGlow: { "0%,100%": { opacity: 1 }, "50%": { opacity: 0.5 } },

@@ -114,7 +114,7 @@ export default function Profile() {
   return (
     <div className="mx-auto max-w-3xl px-5 pb-20 pt-28 sm:px-8">
       <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-        <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-black/10 bg-surface2">
+        <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-hairline/10 bg-surface2">
           {user.avatar_url ? (
             <img src={assetUrl(user.avatar_url)} alt={user.nama} className="h-full w-full object-cover" />
           ) : (

@@ -61,10 +61,10 @@ export default function SearchUsers() {
         {results.map((u) => (
           <div
             key={u.id}
-            className="glass flex items-center gap-3 rounded-2xl border border-black/10 p-3"
+            className="glass flex items-center gap-3 rounded-2xl border border-hairline/10 p-3"
           >
             <Link to={`/profil/${u.username}`} className="flex min-w-0 flex-1 items-center gap-3">
-              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-black/10 bg-surface2">
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-hairline/10 bg-surface2">
                 {u.avatar_url ? (
                   <img src={assetUrl(u.avatar_url)} alt={u.nama} className="h-full w-full object-cover" />
                 ) : (

@@ -16,6 +16,22 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Runs before React mounts so there's no flash of the wrong theme.
+      // Mirrors the logic in src/store/themeStore.js's init().
+      (function () {
+        try {
+          var stored = JSON.parse(localStorage.getItem("2amstage-theme"));
+          var mode =
+            stored && stored.state && stored.state.mode
+              ? stored.state.mode
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          if (mode === "dark") document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-void text-hi font-body antialiased">
     <div id="root"></div>

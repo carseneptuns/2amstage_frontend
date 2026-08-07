@@ -72,7 +72,7 @@ export default function IntroSplash({ onFinish }) {
           <motion.path
             d="M6 22 L16 6 L26 22 Z"
             fill="none"
-            stroke="#0071e3"
+            stroke="rgb(var(--c-stage))"
             strokeWidth="2"
             strokeLinejoin="round"
             initial={{ pathLength: 0, opacity: 0 }}
@@ -83,7 +83,7 @@ export default function IntroSplash({ onFinish }) {
             cx="16"
             cy="17"
             r="2.4"
-            fill="#b64400"
+            fill="rgb(var(--c-amber))"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: [0, 1.7, 1], opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.65 }}
@@ -139,7 +139,7 @@ export default function IntroSplash({ onFinish }) {
           e.stopPropagation();
           skip();
         }}
-        className="absolute bottom-6 right-6 rounded-full border border-black/10 bg-black/[0.03] px-4 py-2 text-xs font-medium text-mid transition hover:border-stage/40 hover:text-hi sm:bottom-8 sm:right-8"
+        className="absolute bottom-6 right-6 rounded-full border border-hairline/10 bg-hairline/[0.03] px-4 py-2 text-xs font-medium text-mid transition hover:border-stage/40 hover:text-hi sm:bottom-8 sm:right-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 1.4 }}

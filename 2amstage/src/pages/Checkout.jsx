@@ -166,7 +166,7 @@ export default function Checkout() {
           )}
 
           {/* Order summary */}
-          <div className="mt-6 rounded-2xl border border-black/10 bg-surface p-6">
+          <div className="mt-6 rounded-2xl border border-hairline/10 bg-surface p-6">
             <div className="flex items-center justify-between">
               <h2 className="font-display text-lg tracking-wide">{event?.nama || "Order"}</h2>
               <span className="badge border-amber/30 bg-amber/10 text-amber">
@@ -175,7 +175,7 @@ export default function Checkout() {
             </div>
 
             {items && (
-              <div className="mt-4 space-y-2 border-t border-black/10 pt-4">
+              <div className="mt-4 space-y-2 border-t border-hairline/10 pt-4">
                 {items.map((it) => (
                   <div key={it.ticket_category_id} className="flex justify-between text-sm">
                     <span className="text-mid">
@@ -187,7 +187,7 @@ export default function Checkout() {
               </div>
             )}
 
-            <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-4">
+            <div className="mt-4 flex items-center justify-between border-t border-hairline/10 pt-4">
               <span className="font-semibold">Total Bayar</span>
               <span className="font-display text-2xl tracking-wide text-hi">
                 {formatIDR(order.total_harga)}
@@ -208,7 +208,7 @@ export default function Checkout() {
                   className={`rounded-2xl border p-4 text-left transition-all ${
                     method === m.id
                       ? "border-stage/50 bg-stage/10 ring-1 ring-stage/40"
-                      : "border-black/10 bg-surface hover:border-black/20"
+                      : "border-hairline/10 bg-surface hover:border-hairline/20"
                   }`}
                 >
                   <m.icon className={`h-5 w-5 ${method === m.id ? "text-stage" : "text-mid"}`} />

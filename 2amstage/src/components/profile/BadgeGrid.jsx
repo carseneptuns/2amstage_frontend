@@ -9,7 +9,7 @@ import { formatDateShort } from "../../utils/format";
 export default function BadgeGrid({ badges, editable = false, onToggleVisible, onMove }) {
   if (!badges || badges.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-black/15 py-12 text-center text-sm text-dim">
+      <div className="rounded-2xl border border-dashed border-hairline/15 py-12 text-center text-sm text-dim">
         <Award className="mx-auto mb-2 h-6 w-6" />
         Belum ada badge konser. Badge muncul otomatis setelah check-in tiket di lokasi acara.
       </div>
@@ -21,7 +21,7 @@ export default function BadgeGrid({ badges, editable = false, onToggleVisible, o
       {badges.map((b, i) => (
         <div
           key={b.id || b.event_id}
-          className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-surface ${
+          className={`group relative overflow-hidden rounded-2xl border border-hairline/10 bg-surface ${
             editable && !b.is_visible ? "opacity-40" : ""
           }`}
         >
@@ -41,21 +41,21 @@ export default function BadgeGrid({ badges, editable = false, onToggleVisible, o
                 <button
                   onClick={() => onMove?.(i, -1)}
                   disabled={i === 0}
-                  className="rounded-md bg-black/[0.04] p-1 text-hi disabled:opacity-30"
+                  className="rounded-md bg-hairline/[0.04] p-1 text-hi disabled:opacity-30"
                 >
                   <ChevronUp className="h-3.5 w-3.5" />
                 </button>
                 <button
                   onClick={() => onMove?.(i, 1)}
                   disabled={i === badges.length - 1}
-                  className="rounded-md bg-black/[0.04] p-1 text-hi disabled:opacity-30"
+                  className="rounded-md bg-hairline/[0.04] p-1 text-hi disabled:opacity-30"
                 >
                   <ChevronDown className="h-3.5 w-3.5" />
                 </button>
               </div>
               <button
                 onClick={() => onToggleVisible?.(b)}
-                className="rounded-md bg-black/[0.04] p-1 text-hi"
+                className="rounded-md bg-hairline/[0.04] p-1 text-hi"
                 title={b.is_visible ? "Sembunyikan dari profil publik" : "Tampilkan di profil publik"}
               >
                 {b.is_visible ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}

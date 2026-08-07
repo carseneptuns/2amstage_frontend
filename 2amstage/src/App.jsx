@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Toaster } from "sonner";
 
+import { useThemeStore } from "./store/themeStore";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
@@ -33,22 +35,19 @@ const SCAN_ROLES = ["petugas", "super_admin"];
 export default function App() {
   const location = useLocation();
   const isAdminArea = location.pathname.startsWith("/admin") || location.pathname.startsWith("/scan");
+  const initTheme = useThemeStore((s) => s.init);
+  const themeMode = useThemeStore((s) => s.mode);
 
   useChatNotifier();
 
+  useEffect(() => {
+    initTheme();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
-      <Toaster
-        theme="light"
-        position="top-center"
-        toastOptions={{
-          style: {
-            background: "#ffffff",
-            border: "1px solid rgba(0,0,0,0.1)",
-            color: "#1d1d1f",
-          },
-        }}
-      />
+      <Toaster theme={themeMode} position="top-center" />
       {!isAdminArea && <Navbar />}
       <main className="flex-1">
         <AnimatePresence mode="wait">

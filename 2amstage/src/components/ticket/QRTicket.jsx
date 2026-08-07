@@ -6,7 +6,7 @@ import { formatDateLong, formatTime, formatDateTime } from "../../utils/format";
 
 const STATUS_MAP = {
   unused: { label: "Aktif", cls: "border-emerald-400/30 bg-emerald-400/10 text-emerald-400" },
-  used: { label: "Sudah Check-in", cls: "border-black/15 bg-black/[0.03] text-mid" },
+  used: { label: "Sudah Check-in", cls: "border-hairline/15 bg-hairline/[0.03] text-mid" },
   void: { label: "Tidak Berlaku", cls: "border-stage/30 bg-stage/10 text-stage" },
 };
 
@@ -95,7 +95,7 @@ export default function QRTicket({ ticket, event, categoryName, index = 0 }) {
                 className="h-20 w-20 rounded-lg bg-white p-1 shadow-[0_4px_16px_rgba(0,0,0,0.35)]"
               />
             ) : (
-              <div className="h-20 w-20 rounded-lg bg-black/[0.03]" />
+              <div className="h-20 w-20 rounded-lg bg-hairline/[0.03]" />
             )}
             <p className="mt-2 break-all font-mono text-[9px] leading-tight text-dim">
               {ticket.ticket_code}

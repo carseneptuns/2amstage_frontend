@@ -8,7 +8,7 @@ function Unit({ value, label, accent = false }) {
         className={`flex h-12 w-12 items-center justify-center rounded-lg font-mono text-lg font-bold sm:h-14 sm:w-14 sm:text-xl ${
           accent
             ? "bg-stage/15 text-stage border border-stage/30"
-            : "bg-black/[0.03] text-hi border border-black/10"
+            : "bg-hairline/[0.03] text-hi border border-hairline/10"
         }`}
       >
         {pad2(value)}

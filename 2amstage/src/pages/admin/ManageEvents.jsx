@@ -10,10 +10,10 @@ import EventFormModal from "../../components/admin/EventFormModal";
 import CategoryManagerModal from "../../components/admin/CategoryManagerModal";
 
 const STATUS_STYLES = {
-  draft: "text-dim border-black/10 bg-black/[0.03]",
+  draft: "text-dim border-hairline/10 bg-hairline/[0.03]",
   published: "text-amber border-amber/30 bg-amber/10",
   sold_out: "text-stage border-stage/30 bg-stage/10",
-  selesai: "text-mid border-black/10 bg-black/[0.03]",
+  selesai: "text-mid border-hairline/10 bg-hairline/[0.03]",
   dibatalkan: "text-stage border-stage/30 bg-stage/10",
 };
 
@@ -81,7 +81,7 @@ export default function ManageEvents() {
       </header>
 
       {events.length === 0 ? (
-        <div className="glass rounded-2xl border border-black/10 py-16 text-center">
+        <div className="glass rounded-2xl border border-hairline/10 py-16 text-center">
           <p className="text-mid">Belum ada event. Yuk buat yang pertama.</p>
           <button onClick={openCreate} className="btn-primary mt-4 text-sm">
             <Plus className="h-4 w-4" /> Buat Event
@@ -95,7 +95,7 @@ export default function ManageEvents() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="glass overflow-hidden rounded-2xl border border-black/10"
+              className="glass overflow-hidden rounded-2xl border border-hairline/10"
             >
               <div className="relative h-36 w-full bg-surface3">
                 {event.poster_url ? (
@@ -123,7 +123,7 @@ export default function ManageEvents() {
                   <span>{event.total_kategori || 0} kategori tiket</span>
                   <span>{event.progress_percent ?? 0}% terjual</span>
                 </div>
-                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-black/[0.03]">
+                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-hairline/[0.03]">
                   <div
                     className="h-full rounded-full bg-stage-gradient"
                     style={{ width: `${event.progress_percent ?? 0}%` }}
@@ -139,13 +139,13 @@ export default function ManageEvents() {
                   </button>
                   <button
                     onClick={() => openEdit(event)}
-                    className="rounded-full border border-black/15 bg-black/[0.03] p-2 text-mid transition hover:border-black/25 hover:text-hi"
+                    className="rounded-full border border-hairline/15 bg-hairline/[0.03] p-2 text-mid transition hover:border-hairline/25 hover:text-hi"
                   >
                     <Pencil className="h-3.5 w-3.5" />
                   </button>
                   <button
                     onClick={() => handleDelete(event)}
-                    className="rounded-full border border-black/15 bg-black/[0.03] p-2 text-mid transition hover:border-stage/40 hover:text-stage"
+                    className="rounded-full border border-hairline/15 bg-hairline/[0.03] p-2 text-mid transition hover:border-stage/40 hover:text-stage"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>

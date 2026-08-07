@@ -32,13 +32,13 @@ export default function FollowListModal({ userId, mode, onClose }) {
           onClick={onClose}
         >
           <motion.div
-            className="glass max-h-[75vh] w-full max-w-sm overflow-hidden rounded-2xl border border-black/10"
+            className="glass max-h-[75vh] w-full max-w-sm overflow-hidden rounded-2xl border border-hairline/10"
             initial={{ opacity: 0, scale: 0.96, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-black/10 p-4">
+            <div className="flex items-center justify-between border-b border-hairline/10 p-4">
               <h3 className="font-display text-lg tracking-wide">
                 {mode === "followers" ? "Pengikut" : "Mengikuti"}
               </h3>
@@ -61,9 +61,9 @@ export default function FollowListModal({ userId, mode, onClose }) {
               )}
 
               {users?.map((u) => (
-                <div key={u.id} className="flex items-center gap-3 rounded-xl p-2 hover:bg-black/[0.03]">
+                <div key={u.id} className="flex items-center gap-3 rounded-xl p-2 hover:bg-hairline/[0.03]">
                   <Link to={`/profil/${u.username}`} onClick={onClose} className="flex min-w-0 flex-1 items-center gap-3">
-                    <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-black/10 bg-surface2">
+                    <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-hairline/10 bg-surface2">
                       {u.avatar_url ? (
                         <img src={assetUrl(u.avatar_url)} alt={u.nama} className="h-full w-full object-cover" />
                       ) : (
