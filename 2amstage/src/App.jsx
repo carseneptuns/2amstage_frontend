@@ -39,13 +39,13 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <Toaster
-        theme="dark"
+        theme="light"
         position="top-center"
         toastOptions={{
           style: {
-            background: "#16141E",
-            border: "1px solid rgba(255,255,255,0.1)",
-            color: "#F7F5FB",
+            background: "#ffffff",
+            border: "1px solid rgba(0,0,0,0.1)",
+            color: "#1d1d1f",
           },
         }}
       />

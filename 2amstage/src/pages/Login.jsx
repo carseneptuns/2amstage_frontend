@@ -43,7 +43,7 @@ export default function Login() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="relative w-full max-w-md rounded-3xl border border-white/10 bg-surface/80 p-8 shadow-2xl backdrop-blur-xl sm:p-10"
+        className="relative w-full max-w-md rounded-3xl border border-black/10 bg-surface/80 p-8 shadow-2xl backdrop-blur-xl sm:p-10"
       >
         <Link to="/" className="flex items-center justify-center gap-2">
           <Zap className="h-6 w-6 text-stage" strokeWidth={2.5} />
@@ -74,7 +74,7 @@ export default function Login() {
                 value={form.email}
                 onChange={onChange}
                 placeholder="kamu@email.com"
-                className="w-full rounded-xl border border-white/10 bg-void/60 py-3 pl-11 pr-4 text-sm text-hi outline-none transition focus:border-stage/50 focus:ring-2 focus:ring-stage/20"
+                className="w-full rounded-xl border border-black/10 bg-void/60 py-3 pl-11 pr-4 text-sm text-hi outline-none transition focus:border-stage/50 focus:ring-2 focus:ring-stage/20"
               />
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function Login() {
                 value={form.password}
                 onChange={onChange}
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-white/10 bg-void/60 py-3 pl-11 pr-11 text-sm text-hi outline-none transition focus:border-stage/50 focus:ring-2 focus:ring-stage/20"
+                className="w-full rounded-xl border border-black/10 bg-void/60 py-3 pl-11 pr-11 text-sm text-hi outline-none transition focus:border-stage/50 focus:ring-2 focus:ring-stage/20"
               />
               <button
                 type="button"

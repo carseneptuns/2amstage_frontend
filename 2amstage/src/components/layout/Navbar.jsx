@@ -59,7 +59,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass border-b border-white/10 py-3" : "bg-transparent py-5"
+        scrolled ? "glass border-b border-black/10 py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
@@ -104,7 +104,7 @@ export default function Navbar() {
               <Link to="/cari" className="nav-link flex items-center gap-1.5 text-sm font-medium">
                 <Search className="h-4 w-4" /> Cari
               </Link>
-              <div className="mx-1 h-5 w-px bg-white/10" />
+              <div className="mx-1 h-5 w-px bg-black/[0.04]" />
               <Link
                 to="/profil"
                 className="flex items-center gap-1.5 text-sm text-mid hover:text-hi"
@@ -113,7 +113,7 @@ export default function Navbar() {
               </Link>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-sm text-mid transition hover:border-stage/40 hover:text-stage"
+                className="flex items-center gap-1.5 rounded-full border border-black/10 px-3 py-1.5 text-sm text-mid transition hover:border-stage/40 hover:text-stage"
               >
                 <LogOut className="h-3.5 w-3.5" /> Keluar
               </button>
@@ -142,26 +142,26 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="glass overflow-hidden border-t border-white/10 md:hidden"
+            className="glass overflow-hidden border-t border-black/10 md:hidden"
           >
             <div className="flex flex-col gap-1 px-5 py-4">
               {HOME_LINKS.map((l) => (
                 <button
                   key={l.id}
                   onClick={() => goToSection(l.id)}
-                  className="rounded-lg px-3 py-3 text-left text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                  className="rounded-lg px-3 py-3 text-left text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                 >
                   {l.label}
                 </button>
               ))}
-              <div className="my-2 h-px bg-white/10" />
+              <div className="my-2 h-px bg-black/[0.04]" />
               {isAuthenticated() ? (
                 <>
                   {(user?.role === "organizer" || user?.role === "super_admin") && (
                     <Link
                       to="/admin"
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                      className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                     >
                       <LayoutDashboard className="h-4 w-4" /> Dashboard
                     </Link>
@@ -170,7 +170,7 @@ export default function Navbar() {
                     <Link
                       to="/scan"
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                      className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                     >
                       <ScanLine className="h-4 w-4" /> Scan Tiket
                     </Link>
@@ -178,28 +178,28 @@ export default function Navbar() {
                   <Link
                     to="/my-tickets"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                   >
                     <Ticket className="h-4 w-4" /> Tiket Saya
                   </Link>
                   <Link
                     to="/chat"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                   >
                     <MessageCircle className="h-4 w-4" /> Pesan
                   </Link>
                   <Link
                     to="/cari"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                   >
                     <Search className="h-4 w-4" /> Cari User
                   </Link>
                   <Link
                     to="/profil"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                   >
                     <User className="h-4 w-4" /> Profil Saya
                   </Link>
@@ -215,7 +215,7 @@ export default function Navbar() {
                   <Link
                     to="/login"
                     onClick={() => setOpen(false)}
-                    className="rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-white/5 hover:text-hi"
+                    className="rounded-lg px-3 py-3 text-sm font-medium text-mid hover:bg-black/[0.03] hover:text-hi"
                   >
                     Masuk
                   </Link>

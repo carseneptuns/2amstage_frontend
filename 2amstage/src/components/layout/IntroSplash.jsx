@@ -68,11 +68,11 @@ export default function IntroSplash({ onFinish }) {
 
       <div className="relative flex flex-col items-center px-6">
         {/* mark: stage-beam triangle drawing itself in */}
-        <motion.svg viewBox="0 0 32 32" className="mb-5 h-14 w-14 drop-shadow-[0_0_18px_rgba(255,46,99,0.55)] sm:h-16 sm:w-16">
+        <motion.svg viewBox="0 0 32 32" className="mb-5 h-14 w-14 sm:h-16 sm:w-16">
           <motion.path
             d="M6 22 L16 6 L26 22 Z"
             fill="none"
-            stroke="#FF2E63"
+            stroke="#0071e3"
             strokeWidth="2"
             strokeLinejoin="round"
             initial={{ pathLength: 0, opacity: 0 }}
@@ -83,7 +83,7 @@ export default function IntroSplash({ onFinish }) {
             cx="16"
             cy="17"
             r="2.4"
-            fill="#FFC93C"
+            fill="#b64400"
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: [0, 1.7, 1], opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.65 }}
@@ -104,7 +104,7 @@ export default function IntroSplash({ onFinish }) {
               </motion.span>
             ))}
           </span>
-          <span className="font-display flex text-5xl tracking-wide text-stage drop-shadow-[0_0_20px_rgba(255,46,99,0.6)] sm:text-7xl">
+          <span className="font-display flex text-5xl tracking-wide text-stage sm:text-7xl">
             {LETTERS_STAGE.map((ch, i) => (
               <motion.span
                 key={`s-${i}`}
@@ -139,7 +139,7 @@ export default function IntroSplash({ onFinish }) {
           e.stopPropagation();
           skip();
         }}
-        className="absolute bottom-6 right-6 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-mid transition hover:border-stage/40 hover:text-hi sm:bottom-8 sm:right-8"
+        className="absolute bottom-6 right-6 rounded-full border border-black/10 bg-black/[0.03] px-4 py-2 text-xs font-medium text-mid transition hover:border-stage/40 hover:text-hi sm:bottom-8 sm:right-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 1.4 }}

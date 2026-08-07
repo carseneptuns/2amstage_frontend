@@ -13,11 +13,11 @@ import { useAuthStore } from "../store/authStore";
 
 const STATUS_META = {
   success: { label: "TIKET VALID", color: "text-green-400", border: "border-green-400/50", glow: "shadow-[0_0_40px_rgba(52,199,132,0.35)]", icon: CheckCircle2 },
-  already_used: { label: "SUDAH DIPAKAI", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(255,201,60,0.3)]", icon: Clock },
-  void: { label: "TIDAK BERLAKU", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(255,201,60,0.3)]", icon: AlertTriangle },
-  expired: { label: "KEDALUWARSA", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(255,201,60,0.3)]", icon: Clock },
-  Invalid: { label: "TIKET TIDAK DITEMUKAN", color: "text-stage", border: "border-stage/50", glow: "shadow-[0_0_40px_rgba(255,46,99,0.35)]", icon: XCircle },
-  error: { label: "GAGAL MEMVALIDASI", color: "text-stage", border: "border-stage/50", glow: "shadow-[0_0_40px_rgba(255,46,99,0.35)]", icon: XCircle },
+  already_used: { label: "SUDAH DIPAKAI", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(182,68,0,0.25)]", icon: Clock },
+  void: { label: "TIDAK BERLAKU", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(182,68,0,0.25)]", icon: AlertTriangle },
+  expired: { label: "KEDALUWARSA", color: "text-amber", border: "border-amber/50", glow: "shadow-[0_0_40px_rgba(182,68,0,0.25)]", icon: Clock },
+  Invalid: { label: "TIKET TIDAK DITEMUKAN", color: "text-stage", border: "border-stage/50", glow: "shadow-[0_0_40px_rgba(0,113,227,0.3)]", icon: XCircle },
+  error: { label: "GAGAL MEMVALIDASI", color: "text-stage", border: "border-stage/50", glow: "shadow-[0_0_40px_rgba(0,113,227,0.3)]", icon: XCircle },
 };
 
 const RESUME_DELAY = 3000;
@@ -175,7 +175,7 @@ export default function ScanTicket() {
 
   return (
     <div className="flex min-h-screen flex-col bg-void">
-      <header className="flex shrink-0 items-center justify-between border-b border-white/10 bg-surface px-5 py-4">
+      <header className="flex shrink-0 items-center justify-between border-b border-black/10 bg-surface px-5 py-4">
         <div className="flex items-center gap-2">
           <ScanLine className="h-5 w-5 text-stage" />
           <span className="font-display text-lg tracking-wide">
@@ -184,7 +184,7 @@ export default function ScanTicket() {
         </div>
         <div className="flex items-center gap-2">
           <span className="hidden text-xs text-dim sm:inline">{user?.nama}</span>
-          <Link to="/" className="rounded-full p-2 text-mid hover:bg-white/5 hover:text-hi" title="Kembali ke Situs">
+          <Link to="/" className="rounded-full p-2 text-mid hover:bg-black/[0.03] hover:text-hi" title="Kembali ke Situs">
             <Globe className="h-4 w-4" />
           </Link>
           <button onClick={handleLogout} className="rounded-full p-2 text-mid hover:bg-stage/10 hover:text-stage" title="Keluar">
@@ -195,7 +195,7 @@ export default function ScanTicket() {
 
       <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-5 px-4 py-6">
         {/* Camera viewfinder */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-surface2">
+        <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-black/10 bg-surface2">
           {/* Video selalu dirender tanpa hidden agar onloadedmetadata dipicu dengan benar */}
           <video
             ref={videoRef}
@@ -226,13 +226,13 @@ export default function ScanTicket() {
 
           {/* Scan frame overlay */}
           {cameraState === "ready" && !result && (
-            <div className="pointer-events-none absolute inset-8 rounded-2xl border-2 border-white/30">
+            <div className="pointer-events-none absolute inset-8 rounded-2xl border-2 border-black/25">
               <div className="absolute -left-0.5 -top-0.5 h-8 w-8 rounded-tl-2xl border-l-4 border-t-4 border-stage" />
               <div className="absolute -right-0.5 -top-0.5 h-8 w-8 rounded-tr-2xl border-r-4 border-t-4 border-stage" />
               <div className="absolute -bottom-0.5 -left-0.5 h-8 w-8 rounded-bl-2xl border-b-4 border-l-4 border-stage" />
               <div className="absolute -bottom-0.5 -right-0.5 h-8 w-8 rounded-br-2xl border-b-4 border-r-4 border-stage" />
               <motion.div
-                className="absolute left-0 right-0 h-0.5 bg-stage shadow-[0_0_12px_2px_rgba(255,46,99,0.7)]"
+                className="absolute left-0 right-0 h-0.5 bg-stage shadow-[0_0_12px_2px_rgba(0,113,227,0.6)]"
                 animate={{ top: ["4%", "94%", "4%"] }}
                 transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -283,7 +283,7 @@ export default function ScanTicket() {
         </div>
 
         {/* Manual input fallback */}
-        <div className="rounded-2xl border border-white/10 bg-surface p-4">
+        <div className="rounded-2xl border border-black/10 bg-surface p-4">
           <button
             onClick={() => setManualOpen((o) => !o)}
             className="flex w-full items-center justify-between text-sm font-medium text-mid hover:text-hi"
@@ -310,7 +310,7 @@ export default function ScanTicket() {
 
         {/* Recent scans */}
         {history.length > 0 && (
-          <div className="rounded-2xl border border-white/10 bg-surface p-4">
+          <div className="rounded-2xl border border-black/10 bg-surface p-4">
             <p className="mb-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-dim">
               <TicketIcon className="h-3.5 w-3.5" /> Riwayat Scan
             </p>

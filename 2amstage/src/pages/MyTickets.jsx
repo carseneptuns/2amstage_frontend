@@ -14,7 +14,7 @@ import { formatIDR, formatDateTime } from "../utils/format";
 const STATUS_BADGE = {
   paid: "border-emerald-400/30 bg-emerald-400/10 text-emerald-400",
   pending: "border-amber/30 bg-amber/10 text-amber",
-  cancelled: "border-white/15 bg-white/5 text-mid",
+  cancelled: "border-black/15 bg-black/[0.03] text-mid",
   expired: "border-stage/30 bg-stage/10 text-stage",
 };
 
@@ -111,7 +111,7 @@ export default function MyTickets() {
 
           return (
             <Reveal key={order.id} delay={i * 0.04}>
-              <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col gap-4 rounded-2xl border border-black/10 bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl">
                     <PosterFrame src={event?.poster_url} alt={event?.nama} className="h-full w-full" />
@@ -169,7 +169,7 @@ export default function MyTickets() {
       </div>
 
       {paidOrders.length > 0 && (
-        <div className="mt-8 flex items-start gap-3 rounded-2xl border border-white/10 bg-surface2 p-5 text-sm text-mid">
+        <div className="mt-8 flex items-start gap-3 rounded-2xl border border-black/10 bg-surface2 p-5 text-sm text-mid">
           <MailCheck className="mt-0.5 h-4 w-4 shrink-0 text-stage" />
           <p>
             E-tiket kamu (QR code + detail lengkap) ada di inbox email yang kamu daftarkan.
@@ -183,7 +183,7 @@ export default function MyTickets() {
 
 function EmptyState({ icon: Icon, title, desc }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/15 py-20 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-black/15 py-20 text-center">
       <Icon className="h-8 w-8 text-dim" />
       <p className="font-display text-xl tracking-wide">{title}</p>
       <p className="max-w-xs text-sm text-mid">{desc}</p>

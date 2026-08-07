@@ -48,7 +48,7 @@ const ACCENTS = {
 
 export default function ServiceOverview() {
   return (
-    <section id="services" className="relative border-y border-white/5 bg-surface/40 py-24 sm:py-32">
+    <section id="services" className="relative border-y border-black/5 bg-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="max-w-2xl">
           <span className="badge border-amber/30 bg-amber/10 text-amber">Kenapa 2AMSTAGE</span>
@@ -64,7 +64,7 @@ export default function ServiceOverview() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.06}>
-              <div className="group h-full rounded-2xl border border-white/10 bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+              <div className="group h-full rounded-2xl border border-black/10 bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-black/20">
                 <div
                   className={`flex h-12 w-12 items-center justify-center rounded-xl border ${ACCENTS[s.accent]}`}
                 >

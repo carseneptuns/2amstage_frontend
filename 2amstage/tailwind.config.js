@@ -4,32 +4,41 @@ export default {
   theme: {
     extend: {
       colors: {
-        void: "#0B0A10",
-        surface: "#16141E",
-        surface2: "#201D2B",
-        surface3: "#2A2637",
-        stage: "#FF2E63",
-        amber: "#FFC93C",
-        violet: "#8C6FFF",
-        hi: "#F7F5FB",
-        mid: "#B4AFC7",
-        dim: "#716C87",
+        // Apple (España) style-reference palette. Token NAMES kept the same
+        // as before (void, surface, stage, dst) so every component that
+        // already references them re-themes automatically — only the
+        // underlying hex values changed.
+        void: "#ffffff",       // was #0B0A10 — Apple "Paper", primary page canvas
+        surface: "#f5f5f7",    // was #16141E — Apple "Canvas", alternating gray band
+        surface2: "#f5f5f7",   // was #201D2B — card / input surfaces
+        surface3: "#e8e8ed",   // was #2A2637 — hover wash / elevated surfaces
+        stage: "#0071e3",      // was #FF2E63 — Apple "Electric Blue", primary CTA
+        amber: "#b64400",      // was #FFC93C — Apple "Ember", badges/status accent
+        violet: "#0066cc",     // was #8C6FFF — Apple "Link Blue", secondary accent
+        hi: "#1d1d1f",         // was #F7F5FB — Apple "Primary Ink", primary text
+        mid: "#707070",        // was #B4AFC7 — Apple "Mid Gray", secondary text
+        dim: "#86868b",        // was #716C87 — muted/tertiary text
       },
       fontFamily: {
-        display: ["Anton", "sans-serif"],
+        // SF Pro Display/Text aren't web-licensable — Inter is Apple's own
+        // documented substitute for both, so display & body now share it.
+        display: ["Inter", "sans-serif"],
         body: ["Inter", "sans-serif"],
         mono: ["'Space Mono'", "monospace"],
       },
       backgroundImage: {
-        spotlight:
-          "radial-gradient(60% 60% at 50% 0%, rgba(255,46,99,0.18) 0%, rgba(11,10,16,0) 70%)",
-        "stage-gradient": "linear-gradient(135deg, #FF2E63 0%, #8C6FFF 100%)",
-        "amber-gradient": "linear-gradient(135deg, #FFC93C 0%, #FF2E63 100%)",
+        // Apple's system uses flat color, never decorative UI gradients —
+        // neutralized rather than deleted so existing class usages don't break.
+        spotlight: "radial-gradient(60% 60% at 50% 0%, rgba(0,0,0,0.03) 0%, rgba(255,255,255,0) 70%)",
+        "stage-gradient": "linear-gradient(135deg, #0071e3 0%, #0071e3 100%)",
+        "amber-gradient": "linear-gradient(135deg, #b64400 0%, #b64400 100%)",
       },
       boxShadow: {
-        glow: "0 0 40px rgba(255,46,99,0.35)",
-        "glow-violet": "0 0 40px rgba(140,111,255,0.35)",
-        "glow-amber": "0 0 30px rgba(255,201,60,0.3)",
+        // "Don't use shadows or elevation" — Apple style guide. Kept as
+        // no-ops so hover:shadow-glow etc. stop glowing without erroring.
+        glow: "none",
+        "glow-violet": "none",
+        "glow-amber": "none",
       },
       keyframes: {
         pulseGlow: { "0%,100%": { opacity: 1 }, "50%": { opacity: 0.5 } },

@@ -71,8 +71,8 @@ export default function ChatRoom() {
 
   return (
     <div className="mx-auto flex h-[calc(100vh-5rem)] max-w-2xl flex-col px-5 pt-24 sm:px-8">
-      <div className="flex shrink-0 items-center gap-3 border-b border-white/10 pb-4">
-        <Link to="/chat" className="rounded-full p-2 text-mid hover:bg-white/5 hover:text-hi">
+      <div className="flex shrink-0 items-center gap-3 border-b border-black/10 pb-4">
+        <Link to="/chat" className="rounded-full p-2 text-mid hover:bg-black/[0.03] hover:text-hi">
           <ArrowLeft className="h-4 w-4" />
         </Link>
         {otherUser && (
@@ -120,7 +120,7 @@ export default function ChatRoom() {
         </p>
       )}
 
-      <form onSubmit={handleSend} className="shrink-0 border-t border-white/10 py-4">
+      <form onSubmit={handleSend} className="shrink-0 border-t border-black/10 py-4">
         <div className="flex items-center gap-2">
           <input
             value={text}
