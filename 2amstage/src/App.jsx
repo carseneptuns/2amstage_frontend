@@ -25,12 +25,16 @@ import ChatList from "./pages/ChatList";
 import ChatRoom from "./pages/ChatRoom";
 import SearchUsers from "./pages/SearchUsers";
 
+import useChatNotifier from "./hooks/useChatNotifier";
+
 const STAFF_ROLES = ["organizer", "super_admin"];
 const SCAN_ROLES = ["petugas", "super_admin"];
 
 export default function App() {
   const location = useLocation();
   const isAdminArea = location.pathname.startsWith("/admin") || location.pathname.startsWith("/scan");
+
+  useChatNotifier();
 
   return (
     <div className="flex min-h-screen flex-col">
