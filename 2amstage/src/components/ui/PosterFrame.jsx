@@ -21,7 +21,7 @@ export default function PosterFrame({ src, alt, className = "" }) {
       <div
         className={`flex items-center justify-center bg-gradient-to-br ${grad} ${className}`}
       >
-        <Music4 className="h-10 w-10 text-white/50" strokeWidth={1.5} />
+        <Music4 className="h-10 w-10 text-dim" strokeWidth={1.5} />
       </div>
     );
   }

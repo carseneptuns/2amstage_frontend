@@ -10,6 +10,7 @@ import { apiErrorMessage, assetUrl } from "../lib/api";
 import { useAuthStore } from "../store/authStore";
 import LoadingScreen from "../components/ui/LoadingScreen";
 import FollowButton from "../components/profile/FollowButton";
+import FollowListModal from "../components/profile/FollowListModal";
 import BadgeGrid from "../components/profile/BadgeGrid";
 import EditProfileModal from "../components/profile/EditProfileModal";
 
@@ -22,6 +23,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
+  const [listModal, setListModal] = useState(null); // "followers" | "following" | null
   const [mutualStatus, setMutualStatus] = useState(null);
   const [startingChat, setStartingChat] = useState(false);
 
@@ -112,7 +114,7 @@ export default function Profile() {
   return (
     <div className="mx-auto max-w-3xl px-5 pb-20 pt-28 sm:px-8">
       <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-        <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-white/10 bg-surface2">
+        <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-hairline/10 bg-surface2">
           {user.avatar_url ? (
             <img src={assetUrl(user.avatar_url)} alt={user.nama} className="h-full w-full object-cover" />
           ) : (
@@ -131,8 +133,12 @@ export default function Profile() {
           {user.bio && <p className="mt-3 max-w-md text-sm text-mid">{user.bio}</p>}
 
           <div className="mt-4 flex justify-center gap-6 text-sm sm:justify-start">
-            <span><strong className="text-hi">{follower_count}</strong> <span className="text-dim">Pengikut</span></span>
-            <span><strong className="text-hi">{following_count}</strong> <span className="text-dim">Mengikuti</span></span>
+            <button onClick={() => setListModal("followers")} className="transition hover:opacity-80">
+              <strong className="text-hi">{follower_count}</strong> <span className="text-dim">Pengikut</span>
+            </button>
+            <button onClick={() => setListModal("following")} className="transition hover:opacity-80">
+              <strong className="text-hi">{following_count}</strong> <span className="text-dim">Mengikuti</span>
+            </button>
           </div>
 
           <div className="mt-5 flex justify-center gap-2 sm:justify-start">
@@ -171,6 +177,12 @@ export default function Profile() {
         open={editOpen}
         onClose={() => setEditOpen(false)}
         onSaved={() => load()}
+      />
+
+      <FollowListModal
+        userId={user.id}
+        mode={listModal}
+        onClose={() => setListModal(null)}
       />
     </div>
   );

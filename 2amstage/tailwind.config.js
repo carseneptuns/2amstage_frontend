@@ -1,35 +1,51 @@
 /** @type {import('tailwindcss').Config} */
+
+// Turns a CSS variable (stored as an "R G B" triplet, e.g. "255 255 255")
+// into a Tailwind color that still supports opacity modifiers like
+// bg-void/50. This is what lets every token below flip instantly when the
+// `dark` class toggles on <html>, without touching component files.
+function withOpacity(variable) {
+  return ({ opacityValue }) =>
+    opacityValue !== undefined
+      ? `rgb(var(${variable}) / ${opacityValue})`
+      : `rgb(var(${variable}))`;
+}
+
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        void: "#0B0A10",
-        surface: "#16141E",
-        surface2: "#201D2B",
-        surface3: "#2A2637",
-        stage: "#FF2E63",
-        amber: "#FFC93C",
-        violet: "#8C6FFF",
-        hi: "#F7F5FB",
-        mid: "#B4AFC7",
-        dim: "#716C87",
+        // Light = Apple (España) style reference, Dark = Linear style reference.
+        // Actual values live in src/index.css as CSS variables (:root vs .dark).
+        void: withOpacity("--c-void"),
+        surface: withOpacity("--c-surface"),
+        surface2: withOpacity("--c-surface2"),
+        surface3: withOpacity("--c-surface3"),
+        stage: withOpacity("--c-stage"),
+        amber: withOpacity("--c-amber"),
+        violet: withOpacity("--c-violet"),
+        hi: withOpacity("--c-hi"),
+        mid: withOpacity("--c-mid"),
+        dim: withOpacity("--c-dim"),
+        hairline: withOpacity("--c-hairline"),
+        "on-stage": withOpacity("--c-on-stage"), // text color that sits ON TOP of the stage/CTA fill
       },
       fontFamily: {
-        display: ["Anton", "sans-serif"],
+        display: ["Inter", "sans-serif"],
         body: ["Inter", "sans-serif"],
         mono: ["'Space Mono'", "monospace"],
       },
       backgroundImage: {
-        spotlight:
-          "radial-gradient(60% 60% at 50% 0%, rgba(255,46,99,0.18) 0%, rgba(11,10,16,0) 70%)",
-        "stage-gradient": "linear-gradient(135deg, #FF2E63 0%, #8C6FFF 100%)",
-        "amber-gradient": "linear-gradient(135deg, #FFC93C 0%, #FF2E63 100%)",
+        spotlight: "radial-gradient(60% 60% at 50% 0%, rgb(var(--c-hairline) / 0.04) 0%, rgb(var(--c-void) / 0) 70%)",
+        "stage-gradient": "linear-gradient(135deg, rgb(var(--c-stage)) 0%, rgb(var(--c-stage)) 100%)",
+        "amber-gradient": "linear-gradient(135deg, rgb(var(--c-amber)) 0%, rgb(var(--c-amber)) 100%)",
       },
       boxShadow: {
-        glow: "0 0 40px rgba(255,46,99,0.35)",
-        "glow-violet": "0 0 40px rgba(140,111,255,0.35)",
-        "glow-amber": "0 0 30px rgba(255,201,60,0.3)",
+        glow: "var(--shadow-glow)",
+        "glow-violet": "var(--shadow-glow)",
+        "glow-amber": "var(--shadow-glow)",
       },
       keyframes: {
         pulseGlow: { "0%,100%": { opacity: 1 }, "50%": { opacity: 0.5 } },

@@ -30,14 +30,14 @@ export default function ConcertShowcase({ events, loading, error }) {
           <div className="hidden gap-2 sm:flex">
             <button
               onClick={() => scrollBy(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-hi transition hover:border-stage/40 hover:bg-stage/10"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline/10 text-hi transition hover:border-stage/40 hover:bg-stage/10"
               aria-label="Sebelumnya"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={() => scrollBy(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-hi transition hover:border-stage/40 hover:bg-stage/10"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline/10 text-hi transition hover:border-stage/40 hover:bg-stage/10"
               aria-label="Berikutnya"
             >
               <ChevronRight className="h-5 w-5" />
@@ -55,7 +55,7 @@ export default function ConcertShowcase({ events, loading, error }) {
           )}
 
           {!loading && !error && events.length === 0 && (
-            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/15 py-20 text-center">
+            <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-hairline/15 py-20 text-center">
               <CalendarX2 className="h-8 w-8 text-dim" />
               <p className="text-mid">Belum ada konser yang dipublikasikan saat ini.</p>
               <p className="text-sm text-dim">Cek lagi nanti, line-up baru segera hadir.</p>

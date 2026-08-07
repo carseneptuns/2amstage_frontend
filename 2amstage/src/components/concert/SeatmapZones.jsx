@@ -29,7 +29,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
       {/* Visual stage map */}
-      <div className="rounded-2xl border border-white/10 bg-surface p-5">
+      <div className="rounded-2xl border border-hairline/10 bg-surface p-5">
         <svg viewBox="0 0 100 100" className="w-full">
           {/* stage */}
           <rect x="20" y="6" width="60" height="14" rx="3" className="fill-white/10" />
@@ -59,7 +59,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
                   className={`${soldOut ? "fill-white/5 stroke-white/10" : color.fill + " " + color.stroke} transition-all duration-300`}
                   strokeWidth={selected ? 1.4 : 0.6}
                   style={{
-                    filter: selected ? "drop-shadow(0 0 6px rgba(255,46,99,0.5))" : "none",
+                    filter: selected ? "drop-shadow(0 0 6px rgb(var(--c-stage) / 0.35))" : "none",
                   }}
                 />
                 {/* fill level indicator */}
@@ -97,12 +97,12 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
           </text>
         </svg>
 
-        <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-white/10 pt-4 text-xs text-mid">
+        <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-hairline/10 pt-4 text-xs text-mid">
           <span className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-sm bg-stage/40 ring-1 ring-stage" /> Tersedia
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-sm bg-white/5 ring-1 ring-white/10" /> Habis
+            <span className="h-2.5 w-2.5 rounded-sm bg-hairline/[0.03] ring-1 ring-white/10" /> Habis
           </span>
           <span className="flex items-center gap-1.5">
             <Check className="h-3 w-3 text-stage" /> Dipilih
@@ -122,7 +122,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
               key={cat.id}
               layout
               className={`flex items-center justify-between gap-4 rounded-2xl border p-4 transition-all ${
-                qty > 0 ? `border-stage/40 bg-stage/5 ring-1 ${color.ring}` : "border-white/10 bg-surface"
+                qty > 0 ? `border-stage/40 bg-stage/5 ring-1 ${color.ring}` : "border-hairline/10 bg-surface"
               } ${soldOut ? "opacity-50" : ""}`}
             >
               <div className="min-w-0">
@@ -137,12 +137,12 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
               </div>
 
               {!soldOut && (
-                <div className="flex shrink-0 items-center gap-3 rounded-full border border-white/10 bg-void/50 px-2 py-1.5">
+                <div className="flex shrink-0 items-center gap-3 rounded-full border border-hairline/10 bg-void/50 px-2 py-1.5">
                   <button
                     type="button"
                     onClick={() => onChange(cat.id, Math.max(0, qty - 1))}
                     disabled={qty === 0}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-mid transition hover:bg-white/10 disabled:opacity-30"
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-mid transition hover:bg-hairline/[0.04] disabled:opacity-30"
                   >
                     <Minus className="h-3.5 w-3.5" />
                   </button>
@@ -151,7 +151,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
                     type="button"
                     onClick={() => onChange(cat.id, Math.min(cat.sisa_kuota, 10, qty + 1))}
                     disabled={qty >= Math.min(cat.sisa_kuota, 10)}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-mid transition hover:bg-white/10 disabled:opacity-30"
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-mid transition hover:bg-hairline/[0.04] disabled:opacity-30"
                   >
                     <Plus className="h-3.5 w-3.5" />
                   </button>

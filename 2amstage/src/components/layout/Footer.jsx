@@ -2,7 +2,7 @@ import { Zap, AtSign, MessageCircle, PlayCircle } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-surface">
+    <footer className="border-t border-hairline/10 bg-surface">
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-4">
           <div>
@@ -21,7 +21,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-mid transition hover:border-stage/40 hover:text-stage"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-hairline/10 text-mid transition hover:border-stage/40 hover:text-stage"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-dim sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-hairline/10 pt-6 text-xs text-dim sm:flex-row">
           <span>© {new Date().getFullYear()} 2AMSTAGE. Semua hak dilindungi.</span>
           <span className="font-mono">MADE FOR THE ONES WHO STAY TILL 2AM</span>
         </div>

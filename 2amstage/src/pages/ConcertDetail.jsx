@@ -138,17 +138,17 @@ export default function ConcertDetail() {
           <div className="space-y-12">
             {/* Info row */}
             <Reveal className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-surface p-5">
+              <div className="rounded-2xl border border-hairline/10 bg-surface p-5">
                 <CalendarDays className="h-5 w-5 text-stage" />
                 <p className="mt-3 text-sm text-dim">Tanggal</p>
                 <p className="mt-1 font-semibold">{formatDateLong(event.tanggal)}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-surface p-5">
+              <div className="rounded-2xl border border-hairline/10 bg-surface p-5">
                 <Clock className="h-5 w-5 text-stage" />
                 <p className="mt-3 text-sm text-dim">Waktu</p>
                 <p className="mt-1 font-semibold">{formatTime(event.waktu)}</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-surface p-5">
+              <div className="rounded-2xl border border-hairline/10 bg-surface p-5">
                 <MapPin className="h-5 w-5 text-stage" />
                 <p className="mt-3 text-sm text-dim">Lokasi</p>
                 <p className="mt-1 font-semibold">{event.lokasi}</p>
@@ -156,7 +156,7 @@ export default function ConcertDetail() {
             </Reveal>
 
             {/* Countdown */}
-            <Reveal className="rounded-2xl border border-white/10 bg-gradient-to-br from-surface to-surface2 p-6">
+            <Reveal className="rounded-2xl border border-hairline/10 bg-gradient-to-br from-surface to-surface2 p-6">
               <p className="font-mono text-xs uppercase tracking-widest text-dim">
                 Konser dimulai dalam
               </p>
@@ -183,7 +183,7 @@ export default function ConcertDetail() {
               </p>
               <div className="mt-6">
                 {categories.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-white/15 p-10 text-center text-mid">
+                  <div className="rounded-2xl border border-dashed border-hairline/15 p-10 text-center text-mid">
                     Kategori tiket untuk event ini belum tersedia.
                   </div>
                 ) : (
@@ -199,7 +199,7 @@ export default function ConcertDetail() {
 
           {/* Sticky order summary */}
           <div className="lg:sticky lg:top-28 lg:h-fit">
-            <Reveal className="rounded-2xl border border-white/10 bg-surface p-6">
+            <Reveal className="rounded-2xl border border-hairline/10 bg-surface p-6">
               <h3 className="flex items-center gap-2 font-display text-lg tracking-wide">
                 <ShoppingBag className="h-4 w-4 text-stage" /> RINGKASAN PESANAN
               </h3>
@@ -207,7 +207,7 @@ export default function ConcertDetail() {
               {selectedItems.length === 0 ? (
                 <p className="mt-6 text-sm text-dim">Belum ada tiket dipilih.</p>
               ) : (
-                <div className="mt-5 space-y-3 border-b border-white/10 pb-4">
+                <div className="mt-5 space-y-3 border-b border-hairline/10 pb-4">
                   {selectedItems.map((it) => (
                     <div key={it.ticket_category_id} className="flex items-center justify-between text-sm">
                       <span className="text-mid">

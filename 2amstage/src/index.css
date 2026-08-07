@@ -2,23 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   THEME TOKENS
+   :root  = light mode, "Apple (España)" style reference
+   .dark  = dark mode,  "Linear" style reference
+   Values are "R G B" triplets so Tailwind's opacity modifiers
+   (e.g. border-hairline/10) keep working in both themes.
+   ============================================================ */
+:root {
+  --c-void: 255 255 255;      /* Apple Paper — page canvas */
+  --c-surface: 245 245 247;   /* Apple Canvas — alternating band */
+  --c-surface2: 245 245 247;  /* card / input surfaces */
+  --c-surface3: 232 232 237;  /* Apple Cool Wash — hover state */
+  --c-stage: 0 113 227;       /* Apple Electric Blue — primary CTA */
+  --c-amber: 182 68 0;        /* Apple Ember — badges / status */
+  --c-violet: 0 102 204;      /* Apple Link Blue — secondary accent */
+  --c-hi: 29 29 31;           /* Apple Primary Ink — primary text */
+  --c-mid: 112 112 112;       /* Apple Mid Gray — secondary text */
+  --c-dim: 134 134 139;       /* muted / tertiary text */
+  --c-hairline: 0 0 0;        /* black, used at low opacity for borders/washes */
+  --c-on-stage: 255 255 255;  /* white text on the blue CTA */
+
+  --shadow-glow: none;        /* Apple: "don't use shadows or elevation" */
+
+  --body-wash: radial-gradient(1200px 600px at 15% -10%, rgb(0 113 227 / 0.04) 0%, transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgb(0 102 204 / 0.03) 0%, transparent 55%);
+}
+
+.dark {
+  --c-void: 8 9 10;           /* Linear Void — page canvas */
+  --c-surface: 15 16 17;      /* Linear Carbon — nav / card surfaces */
+  --c-surface2: 22 23 24;     /* Linear Obsidian — elevated panels, inputs */
+  --c-surface3: 35 37 42;     /* Linear Slate/Graphite — hover / ghost fills */
+  --c-stage: 228 242 34;      /* Linear Acid Lime — primary CTA */
+  --c-amber: 235 87 87;       /* Linear Coral Red — status/warning accent */
+  --c-violet: 99 102 241;     /* Linear Iris Violet — secondary accent */
+  --c-hi: 255 255 255;        /* Linear Paper — primary text */
+  --c-mid: 208 214 224;       /* Linear Mist — secondary text */
+  --c-dim: 138 143 152;       /* Linear Fog — muted text */
+  --c-hairline: 255 255 255;  /* white, used at low opacity for borders/washes */
+  --c-on-stage: 8 9 10;       /* near-black text on the acid-lime CTA */
+
+  --shadow-glow: 0 0 0 1px rgb(255 255 255 / 0.08);
+
+  --body-wash: linear-gradient(180deg, rgb(8 9 10) 0%, rgb(15 16 17) 100%);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0b0a10;
-  background-image: radial-gradient(
-      1200px 600px at 15% -10%,
-      rgba(255, 46, 99, 0.14) 0%,
-      transparent 60%
-    ),
-    radial-gradient(900px 500px at 90% 10%, rgba(140, 111, 255, 0.12) 0%, transparent 55%);
+  @apply bg-void text-hi;
+  background-image: var(--body-wash);
+  /* Inter's Linear-style alternate glyphs — harmless in light mode too */
+  font-feature-settings: "cv01" 1, "ss03" 1, "zero" 1;
 }
 
 ::selection {
-  background: #ff2e63;
-  color: #0b0a10;
+  @apply bg-stage text-on-stage;
 }
 
 ::-webkit-scrollbar {
@@ -26,14 +68,14 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0a10;
+  @apply bg-surface;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2637;
+  @apply bg-hairline/20;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff2e63;
+  @apply bg-stage;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -73,33 +115,27 @@ body {
     -webkit-mask-composite: source-in, source-over;
   }
 
-  /* Perforation edge is handled by the dashed border on the stub column itself
-     (see TicketStub.jsx) — kept as a no-op hook class for backward compatibility. */
   .ticket-perforation {
     position: relative;
   }
 
   .text-outline {
-    -webkit-text-stroke: 1.5px rgba(247, 245, 251, 0.25);
+    -webkit-text-stroke: 1.5px rgb(var(--c-hi) / 0.25);
     color: transparent;
   }
 
   .glass {
-    background: rgba(22, 20, 30, 0.6);
+    @apply bg-void/70;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
 
   .nav-link {
+    @apply text-mid transition-colors duration-200 hover:text-hi;
     position: relative;
-    color: #b4afc7;
-    transition: color 0.25s ease;
-  }
-  .nav-link:hover {
-    color: #f7f5fb;
   }
   .nav-link.active {
-    color: #f7f5fb;
+    @apply text-hi;
   }
   .nav-link.active::after {
     content: "";
@@ -108,23 +144,23 @@ body {
     right: 0;
     bottom: -6px;
     height: 2px;
-    background: linear-gradient(90deg, #ff2e63, #8c6fff);
+    @apply bg-stage;
     border-radius: 999px;
   }
 
   .btn-primary {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-stage px-6 py-3 font-semibold text-hi transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-40 disabled:hover:translate-y-0 disabled:hover:shadow-none;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-stage px-6 py-3 font-medium text-on-stage transition-all duration-300 hover:opacity-90 active:opacity-80 disabled:opacity-40 dark:rounded-md dark:shadow-glow;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold text-hi transition-all duration-300 hover:border-white/30 hover:bg-white/10;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-hairline/15 bg-hairline/[0.02] px-6 py-3 font-medium text-hi transition-all duration-300 hover:border-hairline/25 hover:bg-hairline/[0.04] dark:rounded-md;
   }
 
   .badge {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-mid;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-hairline/10 bg-hairline/[0.03] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-mid dark:rounded;
   }
 
   .input-field {
-    @apply rounded-xl border border-white/10 bg-surface2 px-4 py-2.5 text-sm text-hi placeholder:text-dim outline-none transition focus:border-stage/50 focus:ring-1 focus:ring-stage/30;
+    @apply rounded-xl border border-hairline/10 bg-surface2 px-4 py-2.5 text-sm text-hi placeholder:text-dim outline-none transition focus:border-stage/50 focus:ring-1 focus:ring-stage/30 dark:rounded-md;
   }
 }

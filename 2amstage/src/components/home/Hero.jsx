@@ -77,7 +77,7 @@ export default function Hero({ events = [] }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-10 flex items-center gap-4 border-t border-white/10 pt-6"
+              className="mt-10 flex items-center gap-4 border-t border-hairline/10 pt-6"
             >
               <span className="font-mono text-[10px] uppercase tracking-widest text-dim">
                 Segera hadir
@@ -99,7 +99,7 @@ export default function Hero({ events = [] }) {
                 rotate: i === 0 ? 0 : i === 1 ? -6 : 8,
               }}
               transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-x-6 top-0 animate-floatSlow overflow-hidden rounded-2xl border border-white/10 shadow-2xl"
+              className="absolute inset-x-6 top-0 animate-floatSlow overflow-hidden rounded-2xl border border-hairline/10 shadow-2xl"
               style={{
                 zIndex: featured.length - i,
                 animationDelay: `${i * 0.5}s`,
@@ -126,7 +126,7 @@ export default function Hero({ events = [] }) {
             </motion.div>
           ))}
           {featured.length === 0 && (
-            <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/15 text-sm text-dim">
+            <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-hairline/15 text-sm text-dim">
               Konser akan segera diumumkan
             </div>
           )}

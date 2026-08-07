@@ -51,7 +51,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="glass rounded-2xl border border-white/10 p-5"
+            className="glass rounded-2xl border border-hairline/10 p-5"
           >
             <div className="flex items-center justify-between">
               <Icon className={`h-5 w-5 ${color}`} />
@@ -65,7 +65,7 @@ export default function AdminDashboard() {
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="glass rounded-2xl border border-white/10 p-6 lg:col-span-2">
+        <div className="glass rounded-2xl border border-hairline/10 p-6 lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display text-xl tracking-wide">Event Terdekat</h2>
             <Link to="/admin/events" className="flex items-center gap-1 text-xs text-stage hover:underline">
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
               {data.event_terdekat.map((e) => (
                 <div
                   key={e.id}
-                  className="flex items-center gap-4 rounded-xl border border-white/5 bg-surface2 p-3"
+                  className="flex items-center gap-4 rounded-xl border border-hairline/5 bg-surface2 p-3"
                 >
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-surface3">
                     {e.poster_url && (
@@ -99,7 +99,7 @@ export default function AdminDashboard() {
           )}
         </div>
 
-        <div className="glass rounded-2xl border border-white/10 p-6">
+        <div className="glass rounded-2xl border border-hairline/10 p-6">
           <h2 className="mb-4 font-display text-xl tracking-wide">Status Event</h2>
           <div className="space-y-3">
             {Object.entries(data?.status_event || {}).length === 0 && (

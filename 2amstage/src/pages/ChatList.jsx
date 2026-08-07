@@ -56,7 +56,7 @@ export default function ChatList() {
       {error && <p className="py-10 text-center text-mid">{error}</p>}
 
       {conversations?.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-white/15 py-16 text-center">
+        <div className="rounded-2xl border border-dashed border-hairline/15 py-16 text-center">
           <MessageCircle className="mx-auto mb-3 h-8 w-8 text-dim" />
           <p className="text-mid">Belum ada percakapan.</p>
           <p className="mt-1 text-sm text-dim">
@@ -76,7 +76,7 @@ export default function ChatList() {
             <Link
               key={c.id}
               to={`/chat/${c.id}`}
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-surface p-4 transition hover:border-white/20"
+              className="flex items-center gap-3 rounded-2xl border border-hairline/10 bg-surface p-4 transition hover:border-hairline/20"
               onClick={() => c.pesan_terakhir && markRead(c.id, lastMsgTime)}
             >
               

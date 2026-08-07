@@ -102,13 +102,13 @@ export default function EventFormModal({ open, onClose, onSaved, event }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 12 }}
           onClick={(e) => e.stopPropagation()}
-          className="glass flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10"
+          className="glass flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-hairline/10"
         >
-          <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-6 py-4 sm:px-8">
+          <div className="flex shrink-0 items-center justify-between border-b border-hairline/10 px-6 py-4 sm:px-8">
             <h2 className="font-display text-2xl tracking-wide">
               {isEdit ? "Edit Event" : "Buat Event Baru"}
             </h2>
-            <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-white/5 hover:text-hi">
+            <button onClick={onClose} className="rounded-full p-1.5 text-dim hover:bg-hairline/[0.03] hover:text-hi">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -119,7 +119,7 @@ export default function EventFormModal({ open, onClose, onSaved, event }) {
               <div className="space-y-5">
                 <div>
                   <label className="mb-1.5 block text-xs font-medium text-mid">Poster Event</label>
-                  <label className="block aspect-[3/4] w-full cursor-pointer overflow-hidden rounded-2xl border border-dashed border-white/15 bg-surface2">
+                  <label className="block aspect-[3/4] w-full cursor-pointer overflow-hidden rounded-2xl border border-dashed border-hairline/15 bg-surface2">
                     {posterPreview ? (
                       <img src={posterPreview} alt="Poster" className="h-full w-full object-cover" />
                     ) : (
@@ -210,7 +210,7 @@ export default function EventFormModal({ open, onClose, onSaved, event }) {
               </div>
             </div>
 
-            <div className="flex shrink-0 items-center justify-end gap-3 border-t border-white/10 px-6 py-4 sm:px-8">
+            <div className="flex shrink-0 items-center justify-end gap-3 border-t border-hairline/10 px-6 py-4 sm:px-8">
               <button type="button" onClick={onClose} className="btn-secondary text-sm">
                 Batal
               </button>
