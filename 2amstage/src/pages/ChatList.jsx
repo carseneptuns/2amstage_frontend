@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { MessageCircle, AtSign } from "lucide-react";
+import { MessageCircle, AtSign, Bell } from "lucide-react";
 import chatService from "../services/chatService";
 import { apiErrorMessage, assetUrl } from "../lib/api";
 import { useAuthStore } from "../store/authStore";
+import usePushSubscription from "../hooks/usePushSubscription";
 import LoadingScreen from "../components/ui/LoadingScreen";
 import { formatDateTime } from "../utils/format";
 
@@ -20,6 +21,7 @@ function getLastReadMap() {
 
 export default function ChatList() {
   const currentUser = useAuthStore((s) => s.user);
+  const { permission, supported, subscribe } = usePushSubscription();
   const [conversations, setConversations] = useState(null);
   const [error, setError] = useState(null);
   const [lastRead, setLastRead] = useState(getLastReadMap);
@@ -52,6 +54,18 @@ export default function ChatList() {
   return (
     <div className="mx-auto max-w-2xl px-5 pb-20 pt-28 sm:px-8">
       <h1 className="mb-6 font-display text-3xl tracking-wide">PESAN</h1>
+
+      {supported && permission === "default" && (
+        <button
+          onClick={subscribe}
+          className="mb-6 flex w-full items-center gap-3 rounded-2xl border border-stage/25 bg-stage/[0.06] px-4 py-3 text-left transition hover:bg-stage/[0.1]"
+        >
+          <Bell className="h-5 w-5 shrink-0 text-stage" />
+          <span className="flex-1 text-sm text-hi">
+            <span className="font-medium">Aktifkan notifikasi</span> biar nggak ketinggalan chat, walau aplikasinya lagi ditutup.
+          </span>
+        </button>
+      )}
 
       {error && <p className="py-10 text-center text-mid">{error}</p>}
 
