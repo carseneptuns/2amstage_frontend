@@ -6,6 +6,7 @@ import profileService from "../../services/profileService";
 import { apiErrorMessage, assetUrl } from "../../lib/api";
 import { useAuthStore } from "../../store/authStore";
 import { InlineSpinner } from "../ui/LoadingScreen";
+import ImageCropModal from "./ImageCropModal";
 
 export default function EditProfileModal({ open, onClose, onSaved }) {
   const { user, updateUser } = useAuthStore();
@@ -14,6 +15,7 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
   const [bio, setBio] = useState(user?.bio || "");
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(user?.avatar_url ? assetUrl(user.avatar_url) : null);
+  const [cropSource, setCropSource] = useState(null); // File yang lagi diatur crop-nya
   const [saving, setSaving] = useState(false);
 
   if (!open) return null;
@@ -21,8 +23,8 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setAvatarFile(file);
-    setAvatarPreview(URL.createObjectURL(file));
+    setCropSource(file);
+    e.target.value = ""; // biar bisa pilih file yang sama lagi kalau dibatalin
   };
 
   const handleSubmit = async (e) => {
@@ -123,6 +125,18 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
           </form>
         </motion.div>
       </motion.div>
+
+      {cropSource && (
+        <ImageCropModal
+          file={cropSource}
+          onCancel={() => setCropSource(null)}
+          onConfirm={(croppedFile) => {
+            setAvatarFile(croppedFile);
+            setAvatarPreview(URL.createObjectURL(croppedFile));
+            setCropSource(null);
+          }}
+        />
+      )}
     </AnimatePresence>
   );
 }
