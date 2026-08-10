@@ -28,6 +28,7 @@ import ChatRoom from "./pages/ChatRoom";
 import SearchUsers from "./pages/SearchUsers";
 
 import useChatNotifier from "./hooks/useChatNotifier";
+import usePushSubscription from "./hooks/usePushSubscription";
 
 const STAFF_ROLES = ["organizer", "super_admin"];
 const SCAN_ROLES = ["petugas", "super_admin"];
@@ -39,6 +40,7 @@ export default function App() {
   const themeMode = useThemeStore((s) => s.mode);
 
   useChatNotifier();
+  usePushSubscription();
 
   useEffect(() => {
     initTheme();

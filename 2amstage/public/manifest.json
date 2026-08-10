@@ -1,0 +1,17 @@
+{
+  "name": "2AMSTAGE",
+  "short_name": "2AMSTAGE",
+  "description": "Live The Night — beli tiket konser favoritmu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/stage-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
