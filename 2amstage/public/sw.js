@@ -30,6 +30,7 @@ self.addEventListener("push", (event) => {
         icon: "/stage-icon.svg",
         badge: "/stage-icon.svg",
         tag: data.url, // notif dari chat yang sama gantiin yang lama, nggak numpuk
+        renotify: true, // ...tapi tetep bunyi/getar tiap pesan baru, nggak didiemin
         data: { url: data.url },
       });
     })
