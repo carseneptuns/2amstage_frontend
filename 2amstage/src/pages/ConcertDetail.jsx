@@ -53,6 +53,10 @@ export default function ConcertDetail() {
   };
 
   const handleBuy = async () => {
+    if (hasEnded) {
+      toast.error("Event ini sudah berlalu.");
+      return;
+    }
     if (totalTickets === 0) {
       toast.error("Pilih minimal satu tiket dulu.");
       return;
@@ -105,6 +109,10 @@ export default function ConcertDetail() {
   }
 
   const soldOut = event.status === "sold_out";
+  const hasEnded = useMemo(() => {
+    if (!event.tanggal || !event.waktu) return false;
+    return new Date(`${event.tanggal}T${event.waktu}`).getTime() < Date.now();
+  }, [event.tanggal, event.waktu]);
 
   return (
     <div>
@@ -122,7 +130,10 @@ export default function ConcertDetail() {
             <ArrowLeft className="h-4 w-4" /> Semua Konser
           </Link>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            {soldOut && (
+            {hasEnded && (
+              <span className="badge mb-3 border-hairline/15 bg-hairline/[0.05] text-mid">Event Telah Berakhir</span>
+            )}
+            {!hasEnded && soldOut && (
               <span className="badge mb-3 border-stage/30 bg-stage/15 text-stage">Sold Out</span>
             )}
             <h1 className="font-display text-4xl leading-none tracking-wide sm:text-6xl">
@@ -191,6 +202,7 @@ export default function ConcertDetail() {
                     categories={categories}
                     quantities={quantities}
                     onChange={onQuantityChange}
+                    disabled={hasEnded}
                   />
                 )}
               </div>
@@ -226,11 +238,13 @@ export default function ConcertDetail() {
 
               <button
                 onClick={handleBuy}
-                disabled={submitting || soldOut || totalTickets === 0}
+                disabled={submitting || soldOut || hasEnded || totalTickets === 0}
                 className="btn-primary mt-6 w-full"
               >
                 {submitting ? (
                   <InlineSpinner />
+                ) : hasEnded ? (
+                  "Event Telah Berakhir"
                 ) : soldOut ? (
                   "Tiket Habis"
                 ) : (

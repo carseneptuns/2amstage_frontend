@@ -142,6 +142,8 @@ export default function ImageCropModal({ file, onCancel, onConfirm }) {
                   top: offset.y,
                   width: displayW || "auto",
                   height: displayH || "auto",
+                  maxWidth: "none",
+                  maxHeight: "none",
                 }}
               />
             )}

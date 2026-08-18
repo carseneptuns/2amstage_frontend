@@ -23,7 +23,7 @@ function layoutFor(count, i) {
   return { x, y, w, h };
 }
 
-export default function SeatmapZones({ categories, quantities, onChange }) {
+export default function SeatmapZones({ categories, quantities, onChange, disabled = false }) {
   const getColor = (i) => ZONE_COLORS[i % ZONE_COLORS.length];
 
   return (
@@ -47,8 +47,8 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
             return (
               <g
                 key={cat.id}
-                className={soldOut ? "cursor-not-allowed opacity-40" : "cursor-pointer"}
-                onClick={() => !soldOut && onChange(cat.id, (quantities[cat.id] || 0) === 0 ? 1 : quantities[cat.id])}
+                className={soldOut || disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer"}
+                onClick={() => !soldOut && !disabled && onChange(cat.id, (quantities[cat.id] || 0) === 0 ? 1 : quantities[cat.id])}
               >
                 <rect
                   x={x - w / 2}
@@ -123,7 +123,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
               layout
               className={`flex items-center justify-between gap-4 rounded-2xl border p-4 transition-all ${
                 qty > 0 ? `border-stage/40 bg-stage/5 ring-1 ${color.ring}` : "border-hairline/10 bg-surface"
-              } ${soldOut ? "opacity-50" : ""}`}
+              } ${soldOut || disabled ? "opacity-50" : ""}`}
             >
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ export default function SeatmapZones({ categories, quantities, onChange }) {
                 </p>
               </div>
 
-              {!soldOut && (
+              {!soldOut && !disabled && (
                 <div className="flex shrink-0 items-center gap-3 rounded-full border border-hairline/10 bg-void/50 px-2 py-1.5">
                   <button
                     type="button"
