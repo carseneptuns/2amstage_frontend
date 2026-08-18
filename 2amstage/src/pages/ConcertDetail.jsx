@@ -109,10 +109,9 @@ export default function ConcertDetail() {
   }
 
   const soldOut = event.status === "sold_out";
-  const hasEnded = useMemo(() => {
-    if (!event.tanggal || !event.waktu) return false;
-    return new Date(`${event.tanggal}T${event.waktu}`).getTime() < Date.now();
-  }, [event.tanggal, event.waktu]);
+  const hasEnded =
+    Boolean(event.tanggal && event.waktu) &&
+    new Date(`${event.tanggal}T${event.waktu}`).getTime() < Date.now();
 
   return (
     <div>
