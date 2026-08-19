@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 
@@ -23,18 +24,35 @@ const HERO_STRIPS = [
 ];
 
 function HeroCollage() {
+  const [hovered, setHovered] = useState(null);
+
   return (
     <div className="absolute inset-0 -z-20 flex overflow-hidden">
-      {HERO_STRIPS.map((strip, i) => (
-        <div key={i} className="relative h-full min-w-0 flex-1">
-          <img
-            src={strip.src}
-            alt=""
-            className="h-full w-full object-cover"
-            draggable={false}
-          />
-        </div>
-      ))}
+      {HERO_STRIPS.map((strip, i) => {
+        const isHovered = hovered === i;
+        const isDimmed = hovered !== null && !isHovered;
+
+        return (
+          <div
+            key={i}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+            className="relative h-full min-w-0 cursor-pointer overflow-hidden transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ flexGrow: isHovered ? 3 : 1, flexShrink: 1, flexBasis: 0 }}
+          >
+            <img
+              src={strip.src}
+              alt=""
+              className="h-full w-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                transform: isHovered ? "scale(1.06)" : "scale(1)",
+                filter: isDimmed ? "brightness(0.55)" : "brightness(1)",
+              }}
+              draggable={false}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -50,8 +68,8 @@ export default function Hero() {
       <HeroCollage />
 
       {/* Overlay: menggelapkan foto biar teks tetap kebaca, fade ke bg halaman */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-void/85 via-void/55 to-void" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-void via-transparent to-void/40" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-void/85 via-void/55 to-void" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-void via-transparent to-void/40" />
 
       {/* ambient stage beams */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -59,7 +77,7 @@ export default function Hero() {
         <div className="absolute -right-10 top-10 h-[500px] w-[260px] -rotate-12 bg-gradient-to-b from-violet/20 to-transparent blur-3xl" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-32 text-center sm:px-8 sm:pt-40">
+      <div className="pointer-events-none relative mx-auto w-full max-w-7xl px-5 pb-20 pt-32 text-center sm:px-8 sm:pt-40 [&_*]:pointer-events-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
