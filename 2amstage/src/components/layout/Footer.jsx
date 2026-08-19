@@ -1,4 +1,4 @@
-import { Zap, AtSign, MessageCircle, PlayCircle } from "lucide-react";
+import { AtSign, MessageCircle, PlayCircle } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <Zap className="h-6 w-6 text-stage" strokeWidth={2.5} />
+              <img src="/stage-icon.svg" alt="2AMSTAGE" className="h-6 w-6" />
               <span className="font-display text-xl tracking-wide">
                 2AM<span className="text-stage">STAGE</span>
               </span>

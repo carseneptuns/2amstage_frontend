@@ -1,5 +1,5 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { LayoutDashboard, CalendarRange, LogOut, Zap, ShieldCheck, ScanLine, Globe, X } from "lucide-react";
+import { LayoutDashboard, CalendarRange, LogOut, ShieldCheck, ScanLine, Globe, X } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 
 const LINKS = [
@@ -21,7 +21,7 @@ export default function AdminSidebar({ onNavigate, onClose }) {
     <div className="flex h-full w-full flex-col bg-surface">
       <div className="flex items-center justify-between gap-2 border-b border-hairline/10 px-6 py-6">
         <div className="flex items-center gap-2">
-          <Zap className="h-6 w-6 text-stage" strokeWidth={2.5} />
+          <img src="/stage-icon.svg" alt="2AMSTAGE" className="h-6 w-6" />
           <span className="font-display text-lg tracking-wide">
             2AM<span className="text-stage">STAGE</span>
           </span>

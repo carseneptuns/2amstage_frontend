@@ -33,16 +33,25 @@ export default {
         "on-stage": withOpacity("--c-on-stage"), // text color that sits ON TOP of the stage/CTA fill
       },
       fontFamily: {
-        display: ["Inter", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        display: ["Switzer", "Inter", "sans-serif"],
+        body: ["Arial", "sans-serif"],
+        label: ["Switzer", "Inter", "sans-serif"],
         mono: ["'Space Mono'", "monospace"],
       },
+      borderRadius: {
+        DEFAULT: "0.5rem",
+        md: "0.75rem",
+        lg: "1rem",
+      },
       backgroundImage: {
-        spotlight: "radial-gradient(60% 60% at 50% 0%, rgb(var(--c-hairline) / 0.04) 0%, rgb(var(--c-void) / 0) 70%)",
+        spotlight: "none",
         "stage-gradient": "linear-gradient(135deg, rgb(var(--c-stage)) 0%, rgb(var(--c-stage)) 100%)",
         "amber-gradient": "linear-gradient(135deg, rgb(var(--c-amber)) 0%, rgb(var(--c-amber)) 100%)",
       },
       boxShadow: {
+        sm: "0 1px 2px rgba(0, 0, 0, 0.06)",
+        md: "0 4px 12px rgba(0, 0, 0, 0.08)",
+        lg: "0 16px 40px rgba(0, 0, 0, 0.12)",
         glow: "var(--shadow-glow)",
         "glow-violet": "var(--shadow-glow)",
         "glow-amber": "var(--shadow-glow)",

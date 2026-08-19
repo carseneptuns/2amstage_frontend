@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Ticket, User, LogOut, Zap, LayoutDashboard, ScanLine, MessageCircle, Search } from "lucide-react";
+import { Menu, X, Ticket, User, LogOut, LayoutDashboard, ScanLine, MessageCircle, Search } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 import ThemeToggle, { ThemeToggleRow } from "./ThemeToggle";
 
@@ -69,7 +69,11 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
         <Link to="/" className="group flex items-center gap-2" onClick={() => setOpen(false)}>
-          <Zap className="h-6 w-6 text-stage transition-transform group-hover:rotate-12" strokeWidth={2.5} />
+          <img
+            src="/stage-icon.svg"
+            alt="2AMSTAGE"
+            className="h-7 w-7 transition-transform group-hover:rotate-12"
+          />
           <span className="font-display text-xl tracking-wide">
             2AM<span className="text-stage">STAGE</span>
           </span>
