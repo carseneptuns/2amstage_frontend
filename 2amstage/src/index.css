@@ -4,29 +4,31 @@
 
 /* ============================================================
    THEME TOKENS
-   :root  = light mode, "Apple (España)" style reference
+   :root  = light mode — palet krem/putih hangat, terinspirasi dari
+            noho.ink (nilai warna didekati manual, situsnya nggak
+            nyediain token pasti kayak dokumen Apple/Linear)
    .dark  = dark mode,  "Linear" style reference
    Values are "R G B" triplets so Tailwind's opacity modifiers
    (e.g. border-hairline/10) keep working in both themes.
    ============================================================ */
 :root {
-  --c-void: 255 255 255;      /* Apple Paper — page canvas */
-  --c-surface: 245 245 247;   /* Apple Canvas — alternating band */
-  --c-surface2: 245 245 247;  /* card / input surfaces */
-  --c-surface3: 232 232 237;  /* Apple Cool Wash — hover state */
-  --c-stage: 0 113 227;       /* Apple Electric Blue — primary CTA */
-  --c-amber: 182 68 0;        /* Apple Ember — badges / status */
-  --c-violet: 0 102 204;      /* Apple Link Blue — secondary accent */
-  --c-hi: 29 29 31;           /* Apple Primary Ink — primary text */
-  --c-mid: 112 112 112;       /* Apple Mid Gray — secondary text */
-  --c-dim: 134 134 139;       /* muted / tertiary text */
-  --c-hairline: 0 0 0;        /* black, used at low opacity for borders/washes */
-  --c-on-stage: 255 255 255;  /* white text on the blue CTA */
+  --c-void: 247 243 236;      /* canvas krem hangat — background utama */
+  --c-surface: 238 231 216;   /* band krem lebih pekat — selang-seling section */
+  --c-surface2: 250 247 241;  /* card / input surfaces — krem paling terang */
+  --c-surface3: 230 222 206;  /* hover wash */
+  --c-stage: 255 46 99;       /* aksen tunggal — merah/pink asli brand 2AMSTAGE */
+  --c-amber: 168 106 40;      /* ochre hangat — badge/status, senada tema natural */
+  --c-violet: 150 92 66;      /* terracotta muted — aksen sekunder */
+  --c-hi: 26 22 18;           /* nyaris hitam hangat — teks utama */
+  --c-mid: 112 101 88;        /* abu-abu hangat — teks sekunder */
+  --c-dim: 150 140 126;       /* abu-abu hangat lebih muda — teks tersier */
+  --c-hairline: 20 15 10;     /* dipakai di opacity rendah buat border/wash */
+  --c-on-stage: 255 255 255;  /* teks putih di atas tombol CTA */
 
-  --shadow-glow: none;        /* Apple: "don't use shadows or elevation" */
+  --shadow-glow: none;
 
-  --body-wash: radial-gradient(1200px 600px at 15% -10%, rgb(0 113 227 / 0.04) 0%, transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgb(0 102 204 / 0.03) 0%, transparent 55%);
+  --body-wash: radial-gradient(1200px 600px at 15% -10%, rgb(255 46 99 / 0.03) 0%, transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgb(168 106 40 / 0.03) 0%, transparent 55%);
 }
 
 .dark {
