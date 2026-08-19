@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
+import SplitReveal from "../ui/SplitReveal";
+import MagneticButton from "../ui/MagneticButton";
 
 /**
  * ============================================================
@@ -23,11 +25,16 @@ const HERO_STRIPS = [
   { src: "/images/hero/06.jpg" },
 ];
 
-function HeroCollage() {
+function HeroCollage({ containerRef }) {
   const [hovered, setHovered] = useState(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   return (
-    <div className="absolute inset-0 -z-20 flex overflow-hidden">
+    <motion.div style={{ y: parallaxY }} className="absolute inset-0 -z-20 flex overflow-hidden">
       {HERO_STRIPS.map((strip, i) => {
         const isHovered = hovered === i;
         const isDimmed = hovered !== null && !isHovered;
@@ -53,19 +60,20 @@ function HeroCollage() {
           </div>
         );
       })}
-    </div>
+    </motion.div>
   );
 }
 
 export default function Hero() {
+  const sectionRef = useRef(null);
   const scrollToConcerts = () => {
     document.getElementById("concerts")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="snap-section relative isolate flex min-h-[92vh] items-center overflow-hidden">
+    <section ref={sectionRef} className="snap-section relative isolate flex min-h-[92vh] items-center overflow-hidden">
       {/* Background: kolase strip foto vertikal — atur di HERO_STRIPS di atas */}
-      <HeroCollage />
+      <HeroCollage containerRef={sectionRef} />
 
       {/* Overlay: menggelapkan foto biar teks tetap kebaca, fade ke bg halaman */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-void/85 via-void/55 to-void" />
@@ -89,21 +97,29 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-6 font-display text-[16vw] leading-[0.9] tracking-wide text-white sm:text-8xl lg:text-[7rem]"
-        >
-          LIVE
+        <h1 className="mt-6 font-display text-[16vw] leading-[0.9] tracking-wide text-white sm:text-8xl lg:text-[7rem]">
+          <SplitReveal
+            words={[{ text: "LIVE", space: false }]}
+            delay={0.15}
+          />
           <br />
-          <span className="text-outline">TILL</span>{" "}
-          <span className="bg-stage-gradient bg-clip-text text-transparent">2AM</span>
-        </motion.h1>
+          <SplitReveal
+            words={[
+              { text: "TILL", wordClassName: "text-outline" },
+            ]}
+            delay={0.3}
+          />
+          <SplitReveal
+            words={[{ text: "2AM", space: false }]}
+            wordClassName="bg-stage-gradient bg-clip-text text-transparent"
+            delay={0.4}
+          />
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
           className="mx-auto mt-6 max-w-xl text-base text-mid sm:text-lg"
         >
           Dari panggung kecil sampai stadion penuh lampu sorot — temukan konser
@@ -114,15 +130,19 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-4"
         >
-          <button onClick={scrollToConcerts} className="btn-primary">
-            Jelajahi Konser <ArrowRight className="h-4 w-4" />
-          </button>
-          <a href="#about" className="btn-secondary">
-            <PlayCircle className="h-4 w-4" /> Cara Kerjanya
-          </a>
+          <MagneticButton>
+            <button onClick={scrollToConcerts} className="btn-primary">
+              Jelajahi Konser <ArrowRight className="h-4 w-4" />
+            </button>
+          </MagneticButton>
+          <MagneticButton>
+            <a href="#about" className="btn-secondary">
+              <PlayCircle className="h-4 w-4" /> Cara Kerjanya
+            </a>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>
