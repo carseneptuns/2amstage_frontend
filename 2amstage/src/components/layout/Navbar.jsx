@@ -21,11 +21,15 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const scrollEl = document.querySelector(".snap-container") || window;
+    const onScroll = () => {
+      const y = scrollEl === window ? window.scrollY : scrollEl.scrollTop;
+      setScrolled(y > 24);
+    };
     onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    scrollEl.addEventListener("scroll", onScroll);
+    return () => scrollEl.removeEventListener("scroll", onScroll);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!isHome) return;

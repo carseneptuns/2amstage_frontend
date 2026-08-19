@@ -12,7 +12,7 @@ export default function ConcertShowcase({ events, loading, error }) {
   };
 
   return (
-    <section id="concerts" className="relative py-24 sm:py-32">
+    <section id="concerts" className="snap-section relative py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>

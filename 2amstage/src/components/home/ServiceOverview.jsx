@@ -48,7 +48,7 @@ const ACCENTS = {
 
 export default function ServiceOverview() {
   return (
-    <section id="services" className="relative border-y border-hairline/5 bg-surface/40 py-24 sm:py-32">
+    <section id="services" className="snap-section relative border-y border-hairline/5 bg-surface/40 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="max-w-2xl">
           <span className="badge border-amber/30 bg-amber/10 text-amber">Kenapa 2AMSTAGE</span>

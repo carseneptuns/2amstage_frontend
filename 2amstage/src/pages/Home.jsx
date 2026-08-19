@@ -21,11 +21,11 @@ export default function Home() {
   }, [location.hash]);
 
   return (
-    <>
+    <div className="snap-container">
       <Hero events={events} />
       <ConcertShowcase events={events} loading={loading} error={error} />
       <ServiceOverview />
       <AboutUs />
-    </>
+    </div>
   );
 }

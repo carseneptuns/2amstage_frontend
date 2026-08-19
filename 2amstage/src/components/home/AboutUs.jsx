@@ -9,7 +9,7 @@ const STATS = [
 
 export default function AboutUs() {
   return (
-    <section id="about" className="relative py-24 sm:py-32">
+    <section id="about" className="snap-section relative py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:items-center">
         <Reveal>
           <span className="badge border-stage/30 bg-stage/10 text-stage">Tentang 2AMSTAGE</span>

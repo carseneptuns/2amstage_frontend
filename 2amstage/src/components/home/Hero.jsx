@@ -63,7 +63,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative isolate flex min-h-[92vh] items-center overflow-hidden">
+    <section className="snap-section relative isolate flex min-h-[92vh] items-center overflow-hidden">
       {/* Background: kolase strip foto vertikal — atur di HERO_STRIPS di atas */}
       <HeroCollage />
 
