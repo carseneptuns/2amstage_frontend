@@ -5,35 +5,21 @@ import { ArrowRight, PlayCircle } from "lucide-react";
  * ============================================================
  *  KOLASE FOTO HERO
  * ============================================================
- *  Ganti/tambah baris di bawah ini dengan foto kamu sendiri.
- *  - src   : path gambar. Taruh file fotonya di folder
- *            `public/images/hero/`, lalu tulis path-nya di sini
- *            contoh: "/images/hero/01.jpg"
- *  - tint  : warna overlay duotone di atas foto (boleh hex apa
- *            saja). Kosongkan / hapus baris `tint` kalau mau
- *            fotonya tampil natural tanpa filter warna.
+ *  Ganti baris di bawah ini dengan foto kamu sendiri.
+ *  Taruh file fotonya di folder `public/images/hero/`, lalu
+ *  tulis path-nya di sini, contoh: "/images/hero/01.jpg"
  *
  *  Urutan array = urutan strip dari kiri ke kanan.
  *  Boleh nambah/kurangin jumlah strip sesuka hati.
  * ============================================================
  */
 const HERO_STRIPS = [
-  { src: "/images/hero/01.jpg", tint: "#7c9473" }, // sage green
-  { src: "/images/hero/02.jpg", tint: "#b08d57" }, // sepia gold
-  { src: "/images/hero/03.jpg", tint: "#9b6fc9" }, // purple
-  { src: "/images/hero/04.jpg", tint: "#8a1f2b" }, // deep red
-  { src: "/images/hero/05.jpg", tint: "#8fb3c4" }, // ice blue
-  { src: "/images/hero/06.jpg", tint: null }, // grayscale / natural
-  { src: "/images/hero/07.jpg", tint: "#d17bb0" }, // pink
-  { src: "/images/hero/08.jpg", tint: "#c9c9c2" }, // foggy grey
-  { src: "/images/hero/09.jpg", tint: null }, // natural
-  { src: "/images/hero/10.jpg", tint: "#d99a3c" }, // amber
-  { src: "/images/hero/11.jpg", tint: "#a3453a" }, // rust red
-  { src: "/images/hero/12.jpg", tint: "#4d6a87" }, // steel blue
-  { src: "/images/hero/13.jpg", tint: "#8a5db0" }, // violet
-  { src: "/images/hero/14.jpg", tint: "#5b7a94" }, // blue grey
-  { src: "/images/hero/15.jpg", tint: null }, // b&w grain
-  { src: "/images/hero/16.jpg", tint: "#3c8f7a" }, // teal green
+  { src: "/images/hero/01.jpg" },
+  { src: "/images/hero/02.jpg" },
+  { src: "/images/hero/03.jpg" },
+  { src: "/images/hero/04.jpg" },
+  { src: "/images/hero/05.jpg" },
+  { src: "/images/hero/06.jpg" },
 ];
 
 function HeroCollage() {
@@ -45,21 +31,8 @@ function HeroCollage() {
             src={strip.src}
             alt=""
             className="h-full w-full object-cover"
-            style={{ filter: strip.tint ? "grayscale(1) contrast(1.05)" : "none" }}
             draggable={false}
           />
-          {strip.tint && (
-            <div
-              className="absolute inset-0 mix-blend-color"
-              style={{ backgroundColor: strip.tint, opacity: 0.85 }}
-            />
-          )}
-          {strip.tint && (
-            <div
-              className="absolute inset-0"
-              style={{ backgroundColor: strip.tint, opacity: 0.18, mixBlendMode: "multiply" }}
-            />
-          )}
         </div>
       ))}
     </div>
