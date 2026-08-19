@@ -96,7 +96,6 @@ export default function Hero() {
           Penjualan tiket dibuka sepanjang malam
         </motion.div>
 
-        <motion.h1
         <h1 className="mt-6 font-display text-[16vw] leading-[0.9] tracking-wide text-white sm:text-8xl lg:text-[7rem]">
           <SplitReveal
             words={[{ text: "LIVE", space: false }]}
