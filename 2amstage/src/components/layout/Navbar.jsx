@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Ticket, User, LogOut, LayoutDashboard, ScanLine, MessageCircle, Search } from "lucide-react";
+import { Menu, X, Ticket, User, LogOut, Zap, LayoutDashboard, ScanLine, MessageCircle, Search } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 import ThemeToggle, { ThemeToggleRow } from "./ThemeToggle";
 
@@ -67,79 +67,110 @@ export default function Navbar() {
         scrolled ? "glass border-b border-hairline/10 py-3" : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link to="/" className="group flex items-center gap-2" onClick={() => setOpen(false)}>
-          <img
-            src="/stage-icon.svg"
-            alt="2AMSTAGE"
-            className="h-7 w-7 transition-transform group-hover:rotate-12"
-          />
-          <span className="font-display text-xl tracking-wide">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link to="/" className="group flex shrink-0 items-center gap-2" onClick={() => setOpen(false)}>
+          <Zap className="h-6 w-6 text-stage transition-transform group-hover:rotate-12" strokeWidth={2.5} />
+          <span className="font-display text-lg tracking-wide sm:text-xl">
             2AM<span className="text-stage">STAGE</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* Section links: tampil dari tablet ke atas, gap mengecil di tablet */}
+        <nav className="hidden items-center gap-4 md:flex lg:gap-8">
           {HOME_LINKS.map((l) => (
             <button
               key={l.id}
               onClick={() => goToSection(l.id)}
-              className={`nav-link text-sm font-medium ${active === l.id && isHome ? "active" : ""}`}
+              className={`nav-link whitespace-nowrap text-sm font-medium ${active === l.id && isHome ? "active" : ""}`}
             >
               {l.label}
             </button>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        {/* Auth / aksi: tablet = ikon saja, desktop (lg+) = ikon + label */}
+        <div className="hidden items-center gap-1.5 md:flex lg:gap-3">
           {isAuthenticated() ? (
             <>
               {(user?.role === "organizer" || user?.role === "super_admin") && (
-                <Link to="/admin" className="nav-link flex items-center gap-1.5 text-sm font-medium">
-                  <LayoutDashboard className="h-4 w-4" /> Dashboard
+                <Link
+                  to="/admin"
+                  title="Dashboard"
+                  className="nav-link flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium lg:p-0"
+                >
+                  <LayoutDashboard className="h-4 w-4 shrink-0" />
+                  <span className="hidden lg:inline">Dashboard</span>
                 </Link>
               )}
               {user?.role === "petugas" && (
-                <Link to="/scan" className="nav-link flex items-center gap-1.5 text-sm font-medium">
-                  <ScanLine className="h-4 w-4" /> Scan Tiket
+                <Link
+                  to="/scan"
+                  title="Scan Tiket"
+                  className="nav-link flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium lg:p-0"
+                >
+                  <ScanLine className="h-4 w-4 shrink-0" />
+                  <span className="hidden lg:inline">Scan Tiket</span>
                 </Link>
               )}
-              <Link to="/my-tickets" className="nav-link flex items-center gap-1.5 text-sm font-medium">
-                <Ticket className="h-4 w-4" /> Tiket Saya
+              <Link
+                to="/my-tickets"
+                title="Tiket Saya"
+                className="nav-link flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium lg:p-0"
+              >
+                <Ticket className="h-4 w-4 shrink-0" />
+                <span className="hidden lg:inline">Tiket Saya</span>
               </Link>
-              <Link to="/chat" className="nav-link flex items-center gap-1.5 text-sm font-medium">
-                <MessageCircle className="h-4 w-4" /> Pesan
+              <Link
+                to="/chat"
+                title="Pesan"
+                className="nav-link flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium lg:p-0"
+              >
+                <MessageCircle className="h-4 w-4 shrink-0" />
+                <span className="hidden lg:inline">Pesan</span>
               </Link>
-              <Link to="/cari" className="nav-link flex items-center gap-1.5 text-sm font-medium">
-                <Search className="h-4 w-4" /> Cari
+              <Link
+                to="/cari"
+                title="Cari"
+                className="nav-link flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium lg:p-0"
+              >
+                <Search className="h-4 w-4 shrink-0" />
+                <span className="hidden lg:inline">Cari</span>
               </Link>
-              <div className="mx-1 h-5 w-px bg-hairline/[0.04]" />
+
+              <div className="mx-1 hidden h-5 w-px bg-hairline/[0.04] lg:block" />
               <ThemeToggle />
+
               <Link
                 to="/profil"
-                className="flex items-center gap-1.5 text-sm text-mid hover:text-hi"
+                title={user?.nama}
+                className="flex items-center gap-1.5 rounded-lg p-2 text-sm text-mid hover:text-hi lg:p-0"
               >
-                <User className="h-4 w-4" /> {user?.nama?.split(" ")[0]}
+                <User className="h-4 w-4 shrink-0" />
+                <span className="hidden lg:inline">{user?.nama?.split(" ")[0]}</span>
               </Link>
+
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 rounded-full border border-hairline/10 px-3 py-1.5 text-sm text-mid transition hover:border-stage/40 hover:text-stage"
+                title="Keluar"
+                className="flex items-center gap-1.5 rounded-full border border-hairline/10 p-2 text-sm text-mid transition hover:border-stage/40 hover:text-stage lg:px-3 lg:py-1.5"
               >
-                <LogOut className="h-3.5 w-3.5" /> Keluar
+                <LogOut className="h-3.5 w-3.5 shrink-0" />
+                <span className="hidden lg:inline">Keluar</span>
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link text-sm font-medium">
+              <Link to="/login" className="nav-link whitespace-nowrap text-sm font-medium">
                 Masuk
               </Link>
-              <Link to="/register" className="btn-primary !px-5 !py-2.5 text-sm">
+              <Link to="/register" className="btn-primary whitespace-nowrap !px-4 !py-2 text-sm lg:!px-5 lg:!py-2.5">
                 Daftar
               </Link>
             </>
           )}
         </div>
 
+        {/* Hamburger: hanya untuk layar di bawah tablet (< md) */}
         <button className="text-hi md:hidden" onClick={() => setOpen((v) => !v)} aria-label="Menu">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
