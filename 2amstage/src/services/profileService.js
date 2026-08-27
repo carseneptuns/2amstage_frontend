@@ -4,6 +4,7 @@ const profileService = {
   getMine: () => api.get("/profile/me"),
   getByUsername: (username) => api.get(`/profile/${username}`),
   search: (q) => api.get("/profile/search", { params: { q } }),
+  searchEvents: (q) => api.get("/events", { params: { q } }),
   update: (formData) =>
     api.put("/profile/me", formData, {
       headers: { "Content-Type": "multipart/form-data" },

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
-import { Settings, MessageCircle, ArrowLeft, AtSign } from "lucide-react";
+import { Settings, MessageCircle, ArrowLeft, AtSign, Sparkles } from "lucide-react";
 import profileService from "../services/profileService";
 import chatService from "../services/chatService";
 import followService from "../services/followService";
@@ -131,6 +131,15 @@ export default function Profile() {
             {user.username}
           </p>
           {user.bio && <p className="mt-3 max-w-md text-sm text-mid">{user.bio}</p>}
+
+          {user.current_obsession && (
+            <div className="mt-3 flex justify-center sm:justify-start">
+              <span className="glass inline-flex items-center gap-1.5 rounded-full border border-hairline/10 px-3 py-1 text-xs font-medium text-hi">
+                <Sparkles className="h-3.5 w-3.5 text-amber" />
+                Current Obsession: {user.current_obsession}
+              </span>
+            </div>
+          )}
 
           <div className="mt-4 flex justify-center gap-6 text-sm sm:justify-start">
             <button onClick={() => setListModal("followers")} className="transition hover:opacity-80">

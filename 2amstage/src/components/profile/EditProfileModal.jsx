@@ -13,6 +13,7 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
   const [nama, setNama] = useState(user?.nama || "");
   const [username, setUsername] = useState(user?.username || "");
   const [bio, setBio] = useState(user?.bio || "");
+  const [currentObsession, setCurrentObsession] = useState(user?.current_obsession || "");
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(user?.avatar_url ? assetUrl(user.avatar_url) : null);
   const [cropSource, setCropSource] = useState(null); // File yang lagi diatur crop-nya
@@ -35,6 +36,7 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
       fd.append("nama", nama);
       fd.append("username", username.trim().toLowerCase());
       fd.append("bio", bio);
+      fd.append("current_obsession", currentObsession);
       if (avatarFile) fd.append("avatar", avatarFile);
 
       const res = await profileService.update(fd);
@@ -117,6 +119,18 @@ export default function EditProfileModal({ open, onClose, onSaved }) {
                 className="input-field w-full resize-none"
                 placeholder="Ceritain sedikit tentang kamu..."
               />
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-medium text-mid">Current Obsession</label>
+              <input
+                value={currentObsession}
+                onChange={(e) => setCurrentObsession(e.target.value)}
+                maxLength={150}
+                className="input-field w-full"
+                placeholder='Contoh: "Taylor Swift :)"'
+              />
+              <p className="mt-1 text-[11px] text-dim">Cuma bisa 1 badge — apa yang lagi kamu obsesi sekarang?</p>
             </div>
 
             <button type="submit" disabled={saving} className="btn-primary w-full justify-center">
